@@ -3,7 +3,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as config from './config/Configuration';
-import { IConfiguration } from './config/IConfiguration';
 import { Engine } from './engine/Engine';
 
 export function activate(context: vscode.ExtensionContext) {
