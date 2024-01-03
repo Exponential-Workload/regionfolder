@@ -81,9 +81,8 @@
     "vscode:prepublish": "npm run compile",
     "build": "esbuild src/extension.ts --bundle --minify --packages=external --platform=node --format=cjs --sourcemap --outfile=out/extension.js",
     "watch": "pnpm compile --watch",
-    "pretest": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
+    "test": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
     "lint": "prettier -c src",
-    "test": "node ./out/test/runTest.js",
     "package": "vsce package -o regionfolder.vsix",
     "start": "pnpm package && code --install-extension midnight-codium.vsix"
   },
