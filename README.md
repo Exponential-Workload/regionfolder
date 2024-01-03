@@ -2,7 +2,7 @@
 
 This extension enhances the default code folding abilities of Visual Studio Code editor. Regions of code that you'd like to be folded can be wrapped with `#region` comments.
 
-![Custom Folding](https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/imgs/CSharp_region_wrap.gif)
+![Custom Folding](https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/imgs/CSharp_region_wrap.gif)
 
 The precise format of the comment depends on the language. For instance, for C-Style languages, regions are of the form:
 
@@ -58,9 +58,10 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 <!-- #endregion -->
 
 ## Features
+
 ### Feature - Default Folding
 
-A new feature is the notion of `default folds`. Default folds define regions which will be collapsed whenever the file is opened. In the current preview version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
+A new feature is the notion of `default folds`. Default folds define regions which will be collapsed whenever the file is opened. In the current preview version, default folds are only collapsed when the `regionfolder.collapseDefault` command is issued from the command palette.
 
 You can create a default fold by creating a Regex expression which defines the default fold for the language of your choice in your settings file. The Regex is defined in the `defaultFoldStartRegex` property.
 
@@ -69,12 +70,14 @@ In the following example, defined for the Markdown language, default folds are d
 ```
 <!-- #region(collapsed) [NAME] -->
 Some default content here
-<!-- #endregion -->    
+<!-- #endregion -->
 ```
+
 The settings for this default fold are below. You can either put this in your Workspace settings file (`.vscode/settings.json`) or in your user profile settings file:
+
 ```
     "maptz.regionfolder": {
-        "[markdown]": {        
+        "[markdown]": {
             "defaultFoldStartRegex": "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
 
             "foldEnd": "<!-- #endregion -->",
@@ -95,13 +98,13 @@ You can now use the `collapseDefaultRegionsOnOpen` setting to determine whether 
 
 ### Feature - Per-Language Disabling
 
-You can now turn off custom folding on a per-language basis. To do this, you need to add `disableFolding` to the settings for the particular language. You will need to restart VS Code for the changes to take effect. 
+You can now turn off custom folding on a per-language basis. To do this, you need to add `disableFolding` to the settings for the particular language. You will need to restart VS Code for the changes to take effect.
 
 So, for instance, to turn off folding for `cpp` add the following to your settings file:
 
 ```
     "maptz.regionfolder": {
-        "[cpp]": {        
+        "[cpp]": {
             "disableFolding": true
         }
     }
@@ -109,13 +112,13 @@ So, for instance, to turn off folding for `cpp` add the following to your settin
 
 ### Feature - Multiple Fold Definitions Per Language (Preview)
 
-The extension now has preview support for defining multiple fold definitions per language. Secondary folds can be defined in the `foldDefinitions` property in the settings for each language. By settting the `isFoldedByDefault` value to `true`, you can ensure that the folds are collapsed by default when the file opens. 
+The extension now has preview support for defining multiple fold definitions per language. Secondary folds can be defined in the `foldDefinitions` property in the settings for each language. By settting the `isFoldedByDefault` value to `true`, you can ensure that the folds are collapsed by default when the file opens.
 
 The example below is used to collapse Copyright style headers by default in Javascript files:
 
 ```
 /***************************************************
- * Copyright (c) 2020 Maptz.
+ * Copyright (c) 2020 maptz.
  * All rights reserved.
  ***************************************************/
 ```
@@ -143,48 +146,54 @@ The `.vscode/settings.json` file used to define this behaviour is:
 }
 ```
 
-
-
 ### Commands
 
 The commands that this extension provides are listed below:
 
-#### `regionfolder.collapseAllRegions` - *Collapse all #regions.*
+#### `regionfolder.collapseAllRegions` - _Collapse all #regions._
+
 Collapses all #regions for the current document.
 
-#### `regionfolder.collapseDefault`- *Collapse default #regions.*
+#### `regionfolder.collapseDefault`- _Collapse default #regions._
+
 Collapses all default #regions for the current document (i.e. those defined with a `defaultFoldStartRegex`).
 
-#### `regionfolder.deleteRegion` - *Delete current #region tags and contents*
-Deletes the current #region including all the #region tags, and all contents between the tags. 
-#### `regionfolder.removeCurrentRegionTags` - *Delete current #region tags*
-Deletes the current #region tags, leaving the contents between the tags intact. 
+#### `regionfolder.deleteRegion` - _Delete current #region tags and contents_
 
-#### `regionfolder.wrapWithRegion` - *Wrap selection with #region tag.*
-Wraps the currently selected text with #region tags. 
+Deletes the current #region including all the #region tags, and all contents between the tags.
 
-#### `regionfolder.wrapWithRegionAndComment` - *Wrap with #region tag and comment.*
-Wraps the currently seected text with #region tags, and comments the selection out. 
+#### `regionfolder.removeCurrentRegionTags` - _Delete current #region tags_
 
-#### `regionfolder.selectCurrentRegion` - *Select current #region.*
+Deletes the current #region tags, leaving the contents between the tags intact.
+
+#### `regionfolder.wrapWithRegion` - _Wrap selection with #region tag._
+
+Wraps the currently selected text with #region tags.
+
+#### `regionfolder.wrapWithRegionAndComment` - _Wrap with #region tag and comment._
+
+Wraps the currently seected text with #region tags, and comments the selection out.
+
+#### `regionfolder.selectCurrentRegion` - _Select current #region._
+
 Selects the whole current #region, including the tags.
 
-#### `regionfolder.selectCurrentRegionContents`. - *Select current #region contents.*
-Selects the text within the current #region, not including the tags. 
+#### `regionfolder.selectCurrentRegionContents`. - _Select current #region contents._
 
+Selects the text within the current #region, not including the tags.
 
 ## Bugs and Features
 
 The Changelog can be found [here](CHANGELOG.md).
 
-Please log any bugs on Github [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/issues).
+Please log any bugs on Github [here](https://github.com/Exponential-Workload/regionfolder/issues).
 
-If you have a new language that you've supported using the custom configuration, we'd love to incorporate it into the defaults for the extension. Please log an issue or a pull request on the repo [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/).
+If you have a new language that you've supported using the custom configuration, we'd love to incorporate it into the defaults for the extension. Please log an issue or a pull request on the repo [here](https://github.com/Exponential-Workload/regionfolder/).
 
 ## Source Code
 
-The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding).
+The source code is available on GitHub [here](https://github.com/Exponential-Workload/regionfolder).
 
 ## Other Extensions
 
-View other extensions from [Maptz](https://marketplace.visualstudio.com/publishers/maptz)
+View other extensions from [maptz](https://marketplace.visualstudio.com/publishers/maptz)

@@ -1,101 +1,103 @@
 {
-    "name": "regionfolder",
-    "displayName": "#region folding for VS Code",
-    "description": "Provides folding for text wrapped with #region comments in VS Code.",
-    "version": "1.0.22",
-    "homepage": "https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/ReadMe.md",
-    "repository": "https://github.com/maptz/Maptz.VSCode.Extensions.customfolding",
-    "publisher": "maptz",
-    "engines": {
-        "vscode": "^1.76.0"
-    },
-    "categories": [
-        "Other"
+  "name": "@3xpo/regionfolder",
+  "displayName": "#region folding for VS Code",
+  "description": "Provides folding for text wrapped with #region comments in VS Code.",
+  "version": "1.1.0",
+  "homepage": "https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/ReadMe.md",
+  "repository": "https://github.com/Exponential-Workload/regionfolder",
+  "publisher": "maptz",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "icon": "imgs/Icon.png",
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "regionfolder.collapseAllRegions",
+        "title": "Region folding: Collapse all #regions."
+      },
+      {
+        "command": "regionfolder.collapseDefault",
+        "title": "Region folding: Collapse default #regions."
+      },
+      {
+        "command": "regionfolder.deleteRegion",
+        "title": "Region folding: Delete current #region tags and contents"
+      },
+      {
+        "command": "regionfolder.removeCurrentRegionTags",
+        "title": "Region folding: Delete current #region tags"
+      },
+      {
+        "command": "regionfolder.wrapWithRegion",
+        "title": "Region folding: Wrap selection with #region tag."
+      },
+      {
+        "command": "regionfolder.wrapWithRegionAndComment",
+        "title": "Region folding: Wrap with #region tag and comment."
+      },
+      {
+        "command": "regionfolder.selectCurrentRegion",
+        "title": "Region folding: Select current #region."
+      },
+      {
+        "command": "regionfolder.selectCurrentRegionContents",
+        "title": "Region folding: Select current #region contents."
+      }
     ],
-    "activationEvents": [
-        "onStartupFinished"
+    "keybindings": [
+      {
+        "command": "regionfolder.wrapWithRegion",
+        "key": "ctrl+m ctrl+r",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "regionfolder.collapseDefault",
+        "key": "ctrl+shift+m ctrl+shift+r",
+        "when": "editorTextFocus"
+      }
     ],
-    "icon": "imgs/Icon.png",
-    "main": "./out/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "regionfolder.collapseAllRegions",
-                "title": "Region folding: Collapse all #regions."
-            },
-            {
-                "command": "regionfolder.collapseDefault",
-                "title": "Region folding: Collapse default #regions."
-            },
-            {
-                "command": "regionfolder.deleteRegion",
-                "title": "Region folding: Delete current #region tags and contents"
-            },
-            {
-                "command": "regionfolder.removeCurrentRegionTags",
-                "title": "Region folding: Delete current #region tags"
-            },
-            {
-                "command": "regionfolder.wrapWithRegion",
-                "title": "Region folding: Wrap selection with #region tag."
-            },
-            {
-                "command": "regionfolder.wrapWithRegionAndComment",
-                "title": "Region folding: Wrap with #region tag and comment."
-            },
-            {
-                "command": "regionfolder.selectCurrentRegion",
-                "title": "Region folding: Select current #region."
-            },
-            {
-                "command": "regionfolder.selectCurrentRegionContents",
-                "title": "Region folding: Select current #region contents."
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "regionfolder.wrapWithRegion",
-                "key": "ctrl+m ctrl+r",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "regionfolder.collapseDefault",
-                "key": "ctrl+shift+m ctrl+shift+r",
-                "when": "editorTextFocus"
-            }
-        ],
-        "configuration": {
-            "title": "Region folding: Maptz region folding configuration",
-            "type": "object",
-            "properties": {
-                "maptz.regionfolder": {
-                    "type": "object",
-                    "description": "Settings used for custom folding.",
-                    "default": {}
-                }
-            }
-        },
-        "configurationDefaults": {}
+    "configuration": {
+      "title": "Region folding: maptz region folding configuration",
+      "type": "object",
+      "properties": {
+        "maptz.regionfolder": {
+          "type": "object",
+          "description": "Settings used for custom folding.",
+          "default": {}
+        }
+      }
     },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "pretest": "npm run compile && npm run lint",
-        "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js"
-    },
-    "devDependencies": {
-        "@types/glob": "^7.2.0",
-        "@types/mocha": "^9.1.1",
-        "@types/node": "^14.18.37",
-        "@types/vscode": "^1.76.0",
-        "@typescript-eslint/eslint-plugin": "^5.55.0",
-        "@typescript-eslint/parser": "^5.55.0",
-        "@vscode/test-electron": "^2.3.0",
-        "eslint": "^8.36.0",
-        "glob": "^7.2.3",
-        "mocha": "^9.2.2",
-        "typescript": "^4.9.5"
-    }
+    "configurationDefaults": {}
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package -o midnight-codium.vsix",
+    "start": ""
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^14.18.37",
+    "@types/vscode": "^1.76.0",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.36.0",
+    "glob": "^7.2.3",
+    "mocha": "^9.2.2",
+    "typescript": "^4.9.5"
+  }
 }
