@@ -1,13 +1,13 @@
 /* #region  Imports */
-"use strict";
+'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from "vscode";
-import * as Maptz from "./MyFoldingRangeProvider";
-import * as config from "./../config/Configuration";
-import { FileMonitor } from "./FileMonitor";
-import { RegionService } from "./RegionServices";
-import { RegionWrapperService } from "./RegionWrapper";
+import * as vscode from 'vscode';
+import * as Maptz from './MyFoldingRangeProvider';
+import * as config from './../config/Configuration';
+import { FileMonitor } from './FileMonitor';
+import { RegionService } from './RegionServices';
+import { RegionWrapperService } from './RegionWrapper';
 /* #endregion */
 
 /* #region  Engine */
@@ -43,7 +43,7 @@ export class Engine {
     var srt = currentRegion.startRegionTag;
     var start1 = new vscode.Position(
       srt.lineNumber,
-      <number>srt.startCharacter
+      <number>srt.startCharacter,
     );
 
     var ert = currentRegion.endRegionTag;
@@ -89,7 +89,7 @@ export class Engine {
   }
 
   public removeCurrentRegionTags() {
-    vscode.window.showInformationMessage("Remove current region tags");
+    vscode.window.showInformationMessage('Remove current region tags');
     var ate = vscode.window.activeTextEditor;
     if (!ate) {
       return;
@@ -105,7 +105,7 @@ export class Engine {
       return;
     }
 
-    ate.edit((edit) => {
+    ate.edit(edit => {
       if (!currentRegion) {
         return;
       }
@@ -115,7 +115,7 @@ export class Engine {
       var srt = currentRegion.startRegionTag;
       var start1 = new vscode.Position(
         srt.lineNumber,
-        <number>srt.startCharacter
+        <number>srt.startCharacter,
       );
       var startLine = ate.document.lineAt(srt.lineNumber);
       var end1 = new vscode.Position(srt.lineNumber, startLine.text.length);
@@ -130,7 +130,7 @@ export class Engine {
 
       var start2 = new vscode.Position(
         ert.lineNumber,
-        <number>ert.startCharacter
+        <number>ert.startCharacter,
       );
       var end2 = new vscode.Position(ert.lineNumber, endLine.text.length);
       range = new vscode.Range(start2, end2);
@@ -140,7 +140,7 @@ export class Engine {
   }
 
   public deleteCurrentRegion() {
-    vscode.window.showInformationMessage("Delete current region tags");
+    vscode.window.showInformationMessage('Delete current region tags');
     var ate = vscode.window.activeTextEditor;
     if (!ate) {
       return;
@@ -156,7 +156,7 @@ export class Engine {
       return;
     }
 
-    ate.edit((edit) => {
+    ate.edit(edit => {
       if (!currentRegion) {
         return;
       }
@@ -166,7 +166,7 @@ export class Engine {
       var srt = currentRegion.startRegionTag;
       var start = new vscode.Position(
         srt.lineNumber,
-        <number>srt.startCharacter
+        <number>srt.startCharacter,
       );
       var ert = currentRegion.endRegionTag;
 
@@ -187,7 +187,7 @@ export class Engine {
 
   public collapseAllRegions(
     document: vscode.TextDocument | null = null,
-    onlyDefaults: boolean = false
+    onlyDefaults: boolean = false,
   ) {
     // vscode.window.showInformationMessage("collapse all regions");
     if (!document) {
@@ -201,7 +201,7 @@ export class Engine {
       }
     }
 
-    console.log("Collapsing all regions");
+    console.log('Collapsing all regions');
 
     /* #region  NEW CODE */
     const rs = new RegionService(this._configService, document);
@@ -239,7 +239,7 @@ export class Engine {
   }
 
   private getTextEditor(
-    document: vscode.TextDocument
+    document: vscode.TextDocument,
   ): vscode.TextEditor | null {
     for (let te of vscode.window.visibleTextEditors) {
       if (te.document.fileName === document.fileName) {
@@ -251,10 +251,10 @@ export class Engine {
 
   private async foldLines(
     document: vscode.TextDocument,
-    foldLines: Array<number>
+    foldLines: Array<number>,
   ) {
-    var str = "";
-    foldLines.forEach((p) => (str += p + ","));
+    var str = '';
+    foldLines.forEach(p => (str += p + ','));
     // console.log("folding lines: " + str);
 
     const textEditor = this.getTextEditor(document);
@@ -265,7 +265,7 @@ export class Engine {
 
     for (const lineNumber of foldLines) {
       textEditor.selection = new vscode.Selection(lineNumber, 0, lineNumber, 0);
-      await vscode.commands.executeCommand("editor.fold");
+      await vscode.commands.executeCommand('editor.fold');
       // console.log('folding ' + textEditor.selection.anchor.line);
     }
     textEditor.selection = selection;
@@ -275,9 +275,9 @@ export class Engine {
   public wrapWithRegionAndComment() {
     vscode.commands
       .executeCommand(
-        "editor.action.commentLine",
-        "editorHasDocumentFormattingProvider && editorTextFocus",
-        true
+        'editor.action.commentLine',
+        'editorHasDocumentFormattingProvider && editorTextFocus',
+        true,
       )
       .then(() => {
         const textEditor = vscode.window.activeTextEditor;
@@ -292,9 +292,9 @@ export class Engine {
         textEditor.selection = new vscode.Selection(newStart, newEnd);
 
         vscode.commands.executeCommand(
-          "regionfolder.wrapWithRegion",
-          "editorHasDocumentFormattingProvider && editorTextFocus",
-          true
+          'regionfolder.wrapWithRegion',
+          'editorHasDocumentFormattingProvider && editorTextFocus',
+          true,
         );
       });
   }
@@ -307,12 +307,12 @@ export class Engine {
   private registerFoldingRangeProvider() {
     const supportedLanguages = this._configService.getSupportedLanguages();
     const foldingRangeProvider = new Maptz.MyFoldingRangeProvider(
-      this._configService
+      this._configService,
     );
-    console.log("Registering folding range provider");
+    console.log('Registering folding range provider');
     vscode.languages.registerFoldingRangeProvider(
       supportedLanguages,
-      foldingRangeProvider
+      foldingRangeProvider,
     );
 
     this._configService.onConfigurationChanged = () => {
@@ -332,7 +332,7 @@ export class Engine {
 
     this._fileMonitor = new FileMonitor();
     this._fileMonitor.onFileOpened.add(function (doc) {
-      console.log("File opened: " + doc.fileName + " lid: " + doc.languageId);
+      console.log('File opened: ' + doc.fileName + ' lid: ' + doc.languageId);
       if (doc.languageId) {
         //HMM HACK! No texteditor defined for document when this event has been called.
         var collapseOnlyDefaults = true;
@@ -340,7 +340,7 @@ export class Engine {
           var options = self._configService.getOptions();
           const collapseOnOpen = !!options.collapseDefaultRegionsOnOpen;
           console.log(
-            "expo.regionfolder.collapseDefaultRegionsOnOpen:" + collapseOnOpen
+            'expo.regionfolder.collapseDefaultRegionsOnOpen:' + collapseOnOpen,
           );
           if (collapseOnOpen) {
             self.collapseAllRegions(doc, collapseOnlyDefaults);
@@ -349,20 +349,20 @@ export class Engine {
       }
     });
     this._fileMonitor.onFileClosing.add(function (doc) {
-      console.log("File closing: " + doc.fileName);
+      console.log('File closing: ' + doc.fileName);
     });
     this._fileMonitor.onLanguageIdChanged.add(function (doc, oldLID, newLID) {
       // vscode.window.showTextDocument(doc, 1, false).then(e => {
       //     e.edit(edit => {
       //         edit.insert(new vscode.Position(0, 0), "Your advertisement here");
       //     });
-      console.log("FileMonitor has detected change in language: " + newLID);
+      console.log('FileMonitor has detected change in language: ' + newLID);
 
       if (newLID) {
         const options = self._configService.getOptions();
         const collapseOnOpen = !!options.collapseDefaultRegionsOnOpen;
         console.log(
-          "expo.regionfolder.collapseDefaultRegionsOnOpen: " + collapseOnOpen
+          'expo.regionfolder.collapseDefaultRegionsOnOpen: ' + collapseOnOpen,
         );
         if (collapseOnOpen) {
           self.collapseAllRegions(doc);

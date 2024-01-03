@@ -82,22 +82,21 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
+    "lint": "prettier -c src",
     "test": "node ./out/test/runTest.js",
-    "package": "vsce package -o midnight-codium.vsix",
-    "start": ""
+    "package": "vsce package -o regionfolder.vsix",
+    "start": "pnpm package && code --install-extension midnight-codium.vsix"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "^14.18.37",
     "@types/vscode": "^1.76.0",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
     "@vscode/test-electron": "^2.3.0",
-    "eslint": "^8.36.0",
+    "@vscode/vsce": "^2.22.0",
     "glob": "^7.2.3",
     "mocha": "^9.2.2",
+    "prettier": "^3.1.1",
     "typescript": "^4.9.5"
   }
 }
