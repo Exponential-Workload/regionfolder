@@ -10,10 +10,7 @@ class DocumentRecord {
   public languageId: string;
   public trackStartTime: Date = new Date();
 
-  /**
-   *
-   */
-  constructor(document: vscode.TextDocument, languageId: string) {
+  public constructor(document: vscode.TextDocument, languageId: string) {
     this.document = document;
     this.languageId = languageId;
   }
@@ -29,25 +26,21 @@ class EventHandler<T extends (...args: any[]) => void> {
   }
 
   public invoke(...args: any[]) {
-    var ams = <any[]>[].slice.call(arguments);
+    const ams = <any[]>[].slice.call(arguments);
     ams.unshift({});
-    for (var sub of this.subscriptions) {
-      sub.apply({}, args);
-    }
+    for (const sub of this.subscriptions) sub.apply({}, args);
   }
 
   public remove(t: T) {
-    var idx = -1;
-    for (var i = 0; i < this.subscriptions.length; i++) {
-      var sub = this.subscriptions[i];
+    let idx = -1;
+    for (let i = 0; i < this.subscriptions.length; i++) {
+      const sub = this.subscriptions[i];
       if (sub === t) {
         idx = i;
         break;
       }
     }
-    if (idx === -1) {
-      return;
-    }
+    if (idx === -1) return;
 
     this.subscriptions.splice(idx, 1);
   }
@@ -77,22 +70,12 @@ export class FileMonitor {
   private _documentDictionary: DocumentRecord[] = [];
   _settings: FileMonitorSettings;
 
-  // private getTextEditor(document: vscode.TextDocument) : vscode.TextEditor | null{
-  //     for(let te of vscode.window.visibleTextEditors){
-  //         if (te.document.fileName === document.fileName){
-  //             return te;
-  //         }
-  //     }
-  //     return null;
-  // }
-
   public manuallyRegisterDocument(doc: vscode.TextDocument) {
     this.fileOpening(doc);
   }
 
   constructor(settings: FileMonitorSettings | null = null) {
-    //context: vscode.ExtensionContext,
-    var defaultFileMonitorSettings = new FileMonitorSettings();
+    const defaultFileMonitorSettings = new FileMonitorSettings();
     this._settings = defaultFileMonitorSettings;
 
     this.onLanguageIdChanged = new EventHandler<
@@ -109,11 +92,6 @@ export class FileMonitor {
       (document: vscode.TextDocument) => void
     >();
 
-    // vscode.workspace.onDidChangeTextDocument((doc)=>{
-    //     var textEditor = this.getTextEditor(doc.document);
-    //     console.log("Document: " + textEditor?.document.fileName + " TextEditor: " + textEditor);
-
-    // }, null);
     vscode.workspace.onDidOpenTextDocument(dpc => {
       this.fileOpening(dpc);
     }, null);
@@ -132,9 +110,7 @@ export class FileMonitor {
         break;
       }
     }
-    if (selectedIndex === -1) {
-      return { record: null, index: selectedIndex };
-    }
+    if (selectedIndex === -1) return { record: null, index: selectedIndex };
 
     const docRecord = this._documentDictionary[selectedIndex];
     return { record: docRecord, index: selectedIndex };
@@ -143,16 +119,12 @@ export class FileMonitor {
   private stopTrackingDocument(document: vscode.TextDocument) {
     console.log('Stop tracking doc ' + document.fileName);
     const ret = this.findDocumentRecord(document);
-    if (!ret.record) {
-      return;
-    }
+    if (!ret.record) return;
 
     this._documentDictionary.splice(ret.index, 1);
 
     const docRecord = ret.record;
-    if (docRecord.interval) {
-      clearInterval(docRecord.interval);
-    }
+    if (docRecord.interval) clearInterval(docRecord.interval);
     docRecord.interval = null;
   }
 
@@ -164,22 +136,19 @@ export class FileMonitor {
   protected fileOpening(document: vscode.TextDocument) {
     this.onFileOpened.invoke(document);
     this.onLanguageIdChanged.invoke(document, null, document.languageId);
-    if (!this._settings.trackLanguageIdChanges) {
-      return;
-    }
+    if (!this._settings.trackLanguageIdChanges) return;
 
-    var documentRecord = new DocumentRecord(document, document.languageId);
+    const documentRecord = new DocumentRecord(document, document.languageId);
     documentRecord.trackStartTime = new Date();
     this._documentDictionary.push(documentRecord);
 
     documentRecord.interval = setTimeout(() => {
-      //console.log("DocumentRecord Interval running for doc " + document.fileName);
       const ret = this.findDocumentRecord(document);
       if (!ret.record) {
         return;
       }
       if (ret.record.languageId !== document.languageId) {
-        //The LanguageID has changed.
+        // The LanguageID has changed.
         this.raiseLanguageIdChanged(
           ret.record.document,
           ret.record.languageId,
@@ -192,13 +161,11 @@ export class FileMonitor {
         }
       }
 
-      var now = new Date().getTime();
-      var elapsedTimeMs = now - ret.record.trackStartTime.getTime();
-      if (this._settings.stopTrackingAfterMs) {
-        if (elapsedTimeMs >= this._settings.stopTrackingAfterMs) {
+      const now = new Date().getTime();
+      const elapsedTimeMs = now - ret.record.trackStartTime.getTime();
+      if (this._settings.stopTrackingAfterMs)
+        if (elapsedTimeMs >= this._settings.stopTrackingAfterMs)
           this.stopTrackingDocument(document);
-        }
-      }
     }, 10);
   }
   private raiseLanguageIdChanged(
