@@ -215,22 +215,6 @@ export class Engine {
     }
     /* #endregion */
 
-    /* #region  OLD CODE */
-
-    // let currentLanguageConfig = this._configService.getConfigurationForCurrentLanguage(document.languageId);
-    // if (!currentLanguageConfig) { return; }
-    // if (!currentLanguageConfig.foldStartRegex) { return; }
-
-    // var arr = [];
-    // for (let i = 0; i < document.lineCount; i++) {
-    //     var line = document.lineAt(i);
-
-    //     var start = new RegExp(currentLanguageConfig.foldStartRegex, "i");
-    //     if (start.exec(line.text.toString())) {
-    //         arr.push(i);
-    //     }
-    // }
-    /* #endregion */
     this.foldLines(document, arr);
   }
 
