@@ -1,5 +1,5 @@
 {
-  "name": "moe.expo.regionfolder",
+  "name": "regionfolder",
   "displayName": "#region folding for VS Code",
   "description": "Provides folding for text wrapped with #region comments in VS Code.",
   "version": "1.1.0",
@@ -78,9 +78,9 @@
     "configurationDefaults": {}
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "npm run build",
     "build": "esbuild src/extension.ts --bundle --minify --packages=external --platform=node --format=cjs --sourcemap --outfile=out/extension.js",
-    "watch": "pnpm compile --watch",
+    "watch": "pnpm build --watch",
     "test": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
     "lint": "prettier -c src",
     "package": "vsce package -o regionfolder.vsix",
