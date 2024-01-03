@@ -8,9 +8,6 @@ import * as defaultConfig from './DefaultConfiguration';
 /* #region  ConfigurationService */
 export class ConfigurationService {
   public onConfigurationChanged: (() => void) | null = null;
-  /**
-   *
-   */
   constructor(context: vscode.ExtensionContext) {
     context.subscriptions.push(
       vscode.workspace.onDidChangeConfiguration(e => {
@@ -64,10 +61,6 @@ export class ConfigurationService {
         .get<config.IConfiguration>('expo.regionfolder')
     );
 
-    // let loadedConfigO = Object.assign(
-    //     {}, loadedConfig
-    // );
-
     let config: config.IConfiguration = Object.assign(
       {},
       defaultConfig.defaultConfiguration,
@@ -81,7 +74,7 @@ export class ConfigurationService {
     languageId: string,
   ): config.ILanguageConfiguration | null {
     let config = this.loadConfiguration();
-    const currentLanguageConfig = config['[' + languageId + ']'];
+    const currentLanguageConfig = config[`[${languageId}]`];
     if (
       typeof currentLanguageConfig === 'undefined' ||
       !currentLanguageConfig
@@ -99,11 +92,9 @@ export class ConfigurationService {
     /* #region Get the configuration for the current language */
 
     if (!languageId) {
-      var ate = vscode.window.activeTextEditor;
-      if (!ate) {
-        return null;
-      }
-      languageId = ate.document.languageId;
+      const { activeTextEditor } = vscode.window;
+      if (!activeTextEditor) return null;
+      languageId = activeTextEditor.document.languageId;
     }
 
     const currentLanguageConfig = config['[' + languageId + ']'];

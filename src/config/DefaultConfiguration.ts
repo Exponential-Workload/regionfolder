@@ -1,11 +1,11 @@
 import * as IConfig from './IConfiguration';
 
-export let defaultOptionsConfiguration: IConfig.IOptionsConfiguration = {
+export const defaultOptionsConfiguration: IConfig.IOptionsConfiguration = {
   collapseDefaultRegionsOnOpen: true,
   showRegionsInOutline: false,
 };
 
-export let defaultConfiguration: IConfig.IConfiguration = {
+export const defaultConfiguration: IConfig.IConfiguration = {
   '[ansible]': {
     foldEnd: '# endregion',
     foldEndRegex: '[\\s]*#[\\s]*endregion',
