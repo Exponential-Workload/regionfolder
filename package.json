@@ -84,7 +84,7 @@
     "test": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
     "lint": "prettier -c src",
     "package": "vsce package -o regionfolder.vsix",
-    "start": "pnpm package && code --install-extension midnight-codium.vsix"
+    "start": "pnpm package && code --install-extension regionfolder.vsix"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
