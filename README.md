@@ -32,7 +32,7 @@ The extension provides configuration settings, allowing you to provide custom re
 
 To provide a custom folding for your language create a settings in your vscode settings file (either user or workspace) that conforms to the following specification.
 
-    "maptz.regionfolder": {
+    "expo.regionfolder": {
         "[ahk]": {                                      //Language selector
             "foldEnd": "; #endregion",                    //Text inserted at the end of the fold
             "foldEndRegex": ";[\\s]*#endregion",          //Regex used to find fold end text.
@@ -49,7 +49,7 @@ To provide a custom folding for your language create a settings in your vscode s
 
 <!-- #region  -->
 
-You can install the latest version of the extension is available on the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=maptz.regionfolder).
+You can install the latest version of the extension is available on the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=expo.regionfolder).
 
 Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 
@@ -76,7 +76,7 @@ Some default content here
 The settings for this default fold are below. You can either put this in your Workspace settings file (`.vscode/settings.json`) or in your user profile settings file:
 
 ```
-    "maptz.regionfolder": {
+    "expo.regionfolder": {
         "[markdown]": {
             "defaultFoldStartRegex": "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
 
@@ -92,7 +92,7 @@ You can now use the `collapseDefaultRegionsOnOpen` setting to determine whether 
 
 ```
 {
-    "maptz.regionfolder.collapseDefaultRegionsOnOpen": true
+    "expo.regionfolder.collapseDefaultRegionsOnOpen": true
 }
 ```
 
@@ -103,7 +103,7 @@ You can now turn off custom folding on a per-language basis. To do this, you nee
 So, for instance, to turn off folding for `cpp` add the following to your settings file:
 
 ```
-    "maptz.regionfolder": {
+    "expo.regionfolder": {
         "[cpp]": {
             "disableFolding": true
         }
@@ -127,7 +127,7 @@ The `.vscode/settings.json` file used to define this behaviour is:
 
 ```
 {
-  "maptz.regionfolder": {
+  "expo.regionfolder": {
     "[javascript]": {
       "foldEnd": "/* #endregion */",
       "foldEndRegex": "/\\*[\\s]*#endregion",

@@ -68,7 +68,7 @@
       "title": "Region folding: maptz region folding configuration",
       "type": "object",
       "properties": {
-        "maptz.regionfolder": {
+        "expo.regionfolder": {
           "type": "object",
           "description": "Settings used for custom folding.",
           "default": {}
