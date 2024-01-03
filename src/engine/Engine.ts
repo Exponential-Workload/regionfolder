@@ -3,7 +3,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import * as Maptz from './MyFoldingRangeProvider';
+import { CustomFoldingRangeProvider as CustomFolding } from './CustomFoldingRangeProvider';
 import * as config from './../config/Configuration';
 import { FileMonitor } from './FileMonitor';
 import { RegionService } from './RegionServices';
@@ -12,7 +12,7 @@ import { RegionWrapperService } from './RegionWrapper';
 
 /* #region  Engine */
 export class Engine {
-  private _foldingRangeProvider: Maptz.MyFoldingRangeProvider | null = null;
+  private _foldingRangeProvider: CustomFolding | null = null;
   private _configService: config.ConfigurationService;
   private _fileMonitor: FileMonitor;
 
@@ -25,163 +25,129 @@ export class Engine {
   }
 
   public selectCurrentRegion() {
-    var ate = vscode.window.activeTextEditor;
-    if (!ate) {
-      return;
-    }
-    let document = ate.document;
-    if (!document) {
-      return;
-    }
+    const { activeTextEditor } = vscode.window;
+    if (!activeTextEditor) return;
+    const { document } = activeTextEditor;
+    if (!document) return;
 
-    var rs = new RegionService(this._configService, document);
-    var currentRegion = rs.currentRegion();
-    if (!currentRegion) {
-      return;
-    }
+    const regionService = new RegionService(this._configService, document);
+    const currentRegion = regionService.currentRegion();
+    if (!currentRegion) return;
 
-    var srt = currentRegion.startRegionTag;
-    var start1 = new vscode.Position(
-      srt.lineNumber,
-      <number>srt.startCharacter,
+    const { startRegionTag } = currentRegion;
+    const start1 = new vscode.Position(
+      startRegionTag.lineNumber,
+      <number>startRegionTag.startCharacter,
     );
 
-    var ert = currentRegion.endRegionTag;
-    var endLine = ate.document.lineAt(ert.lineNumber);
-    if (!endLine) {
-      return;
-    }
-    var end2 = new vscode.Position(ert.lineNumber, endLine.text.length);
+    const ert = currentRegion.endRegionTag;
+    const endLine = activeTextEditor.document.lineAt(ert.lineNumber);
+    if (!endLine) return;
+    const end2 = new vscode.Position(ert.lineNumber, endLine.text.length);
 
-    ate.selection = new vscode.Selection(start1, end2);
+    activeTextEditor.selection = new vscode.Selection(start1, end2);
   }
 
   public selectCurrentRegionContents() {
-    var ate = vscode.window.activeTextEditor;
-    if (!ate) {
-      return;
-    }
-    let document = ate.document;
-    if (!document) {
-      return;
-    }
+    const { activeTextEditor } = vscode.window;
+    if (!activeTextEditor) return;
+    const { document } = activeTextEditor;
+    if (!document) return;
 
-    var rs = new RegionService(this._configService, document);
-    var currentRegion = rs.currentRegion();
-    if (!currentRegion) {
-      return;
-    }
+    const regionService = new RegionService(this._configService, document);
+    const currentRegion = regionService.currentRegion();
+    if (!currentRegion) return;
 
-    var srt = currentRegion.startRegionTag;
-    var startLineNumber = srt.lineNumber + 1;
-    var endLineNumber = currentRegion.endRegionTag.lineNumber - 1;
-    if (endLineNumber < startLineNumber) {
-      return;
-    }
+    const { startRegionTag } = currentRegion;
 
-    var startLine = ate.document.lineAt(startLineNumber);
-    var endLine = ate.document.lineAt(endLineNumber);
+    const startLineNumber = startRegionTag.lineNumber + 1;
+    const endLineNumber = currentRegion.endRegionTag.lineNumber - 1;
+    if (endLineNumber < startLineNumber) return;
 
-    var start1 = startLine.range.start;
-    var end1 = endLine.range.end;
+    const startLine = activeTextEditor.document.lineAt(startLineNumber);
+    const endLine = activeTextEditor.document.lineAt(endLineNumber);
 
-    ate.selection = new vscode.Selection(start1, end1);
+    const start1 = startLine.range.start;
+    const end1 = endLine.range.end;
+
+    activeTextEditor.selection = new vscode.Selection(start1, end1);
   }
 
   public removeCurrentRegionTags() {
     vscode.window.showInformationMessage('Remove current region tags');
-    var ate = vscode.window.activeTextEditor;
-    if (!ate) {
-      return;
-    }
-    let document = ate.document;
-    if (!document) {
-      return;
-    }
+    const { activeTextEditor } = vscode.window;
+    if (!activeTextEditor) return;
+    let { document } = activeTextEditor;
+    if (!document) return;
 
-    var rs = new RegionService(this._configService, document);
-    var currentRegion = rs.currentRegion();
-    if (!currentRegion) {
-      return;
-    }
+    const regionService = new RegionService(this._configService, document);
+    const currentRegion = regionService.currentRegion();
+    if (!currentRegion) return;
 
-    ate.edit(edit => {
-      if (!currentRegion) {
-        return;
-      }
-      if (!ate) {
-        return;
-      }
-      var srt = currentRegion.startRegionTag;
-      var start1 = new vscode.Position(
-        srt.lineNumber,
-        <number>srt.startCharacter,
+    activeTextEditor.edit(edit => {
+      if (!currentRegion) return;
+      if (!activeTextEditor) return;
+      const { startRegionTag } = currentRegion;
+      const start1 = new vscode.Position(
+        startRegionTag.lineNumber,
+        <number>startRegionTag.startCharacter,
       );
-      var startLine = ate.document.lineAt(srt.lineNumber);
-      var end1 = new vscode.Position(srt.lineNumber, startLine.text.length);
-      var range = new vscode.Range(start1, end1);
+      const startLine = activeTextEditor.document.lineAt(
+        startRegionTag.lineNumber,
+      );
+      const end1 = new vscode.Position(
+        startRegionTag.lineNumber,
+        startLine.text.length,
+      );
+      let range = new vscode.Range(start1, end1);
       edit.delete(range);
 
-      var ert = currentRegion.endRegionTag;
-      var endLine = ate.document.lineAt(ert.lineNumber);
-      if (!endLine) {
-        return;
-      }
+      const { endRegionTag } = currentRegion;
+      const endLine = activeTextEditor.document.lineAt(endRegionTag.lineNumber);
+      if (!endLine) return;
 
-      var start2 = new vscode.Position(
-        ert.lineNumber,
-        <number>ert.startCharacter,
+      const start2 = new vscode.Position(
+        endRegionTag.lineNumber,
+        <number>endRegionTag.startCharacter,
       );
-      var end2 = new vscode.Position(ert.lineNumber, endLine.text.length);
+      const end2 = new vscode.Position(
+        endRegionTag.lineNumber,
+        endLine.text.length,
+      );
       range = new vscode.Range(start2, end2);
       edit.delete(range);
-      // tslint:disable-next-line:no-unused-expression
     });
   }
 
   public deleteCurrentRegion() {
     vscode.window.showInformationMessage('Delete current region tags');
-    var ate = vscode.window.activeTextEditor;
-    if (!ate) {
-      return;
-    }
-    let document = ate.document;
-    if (!document) {
-      return;
-    }
+    const { activeTextEditor } = vscode.window;
+    if (!activeTextEditor) return;
+    const { document } = activeTextEditor;
+    if (!document) return;
 
-    var rs = new RegionService(this._configService, document);
-    var currentRegion = rs.currentRegion();
-    if (!currentRegion) {
-      return;
-    }
+    const regionService = new RegionService(this._configService, document);
+    const currentRegion = regionService.currentRegion();
+    if (!currentRegion) return;
 
-    ate.edit(edit => {
-      if (!currentRegion) {
-        return;
-      }
-      if (!ate) {
-        return;
-      }
-      var srt = currentRegion.startRegionTag;
-      var start = new vscode.Position(
-        srt.lineNumber,
-        <number>srt.startCharacter,
+    activeTextEditor.edit(edit => {
+      if (!currentRegion) return;
+      if (!activeTextEditor) return;
+      const { startRegionTag, endRegionTag } = currentRegion;
+      const start = new vscode.Position(
+        startRegionTag.lineNumber,
+        <number>startRegionTag.startCharacter,
       );
-      var ert = currentRegion.endRegionTag;
+      const endLine = activeTextEditor.document.lineAt(endRegionTag.lineNumber);
+      if (!endLine) return;
 
-      var endLine = ate.document.lineAt(ert.lineNumber);
-      if (!endLine) {
-        return;
-      }
-      var endLineT = endLine.text;
-
-      var end = new vscode.Position(ert.lineNumber, endLineT.length);
-
-      var range = new vscode.Range(start, end);
-
+      const endLineText = endLine.text;
+      const end = new vscode.Position(
+        endRegionTag.lineNumber,
+        endLineText.length,
+      );
+      const range = new vscode.Range(start, end);
       edit.delete(range);
-      // tslint:disable-next-line:no-unused-expression
     });
   }
 
@@ -189,21 +155,15 @@ export class Engine {
     document: vscode.TextDocument | null = null,
     onlyDefaults: boolean = false,
   ) {
-    // vscode.window.showInformationMessage("collapse all regions");
     if (!document) {
-      var ate = vscode.window.activeTextEditor;
-      if (!ate) {
-        return;
-      }
-      document = ate.document;
-      if (!document) {
-        return;
-      }
+      const { activeTextEditor } = vscode.window;
+      if (!activeTextEditor) return;
+      document = activeTextEditor.document;
+      if (!document) return;
     }
 
     console.log('Collapsing all regions');
 
-    /* #region  NEW CODE */
     const rs = new RegionService(this._configService, document);
     const regions = rs.getRegions();
     const arr = [];
@@ -213,7 +173,6 @@ export class Engine {
       }
       arr.push(region.lineStart);
     }
-    /* #endregion */
 
     this.foldLines(document, arr);
   }
@@ -225,11 +184,8 @@ export class Engine {
   private getTextEditor(
     document: vscode.TextDocument,
   ): vscode.TextEditor | null {
-    for (let te of vscode.window.visibleTextEditors) {
-      if (te.document.fileName === document.fileName) {
-        return te;
-      }
-    }
+    for (let te of vscode.window.visibleTextEditors)
+      if (te.document.fileName === document.fileName) return te;
     return null;
   }
 
@@ -237,9 +193,8 @@ export class Engine {
     document: vscode.TextDocument,
     foldLines: Array<number>,
   ) {
-    var str = '';
+    let str = '';
     foldLines.forEach(p => (str += p + ','));
-    // console.log("folding lines: " + str);
 
     const textEditor = this.getTextEditor(document);
     if (!textEditor) {
@@ -250,10 +205,8 @@ export class Engine {
     for (const lineNumber of foldLines) {
       textEditor.selection = new vscode.Selection(lineNumber, 0, lineNumber, 0);
       await vscode.commands.executeCommand('editor.fold');
-      // console.log('folding ' + textEditor.selection.anchor.line);
     }
     textEditor.selection = selection;
-    // textEditor.revealRange(textEditor.selection, vscode.TextEditorRevealType.InCenter);
   }
 
   public wrapWithRegionAndComment() {
@@ -270,8 +223,8 @@ export class Engine {
         }
         const selection = textEditor.selection;
 
-        var newStart = new vscode.Position(selection.start.line, 0);
-        var newEnd = textEditor.document.lineAt(selection.end.line).range.end;
+        const newStart = new vscode.Position(selection.start.line, 0);
+        const newEnd = textEditor.document.lineAt(selection.end.line).range.end;
 
         textEditor.selection = new vscode.Selection(newStart, newEnd);
 
@@ -284,15 +237,14 @@ export class Engine {
   }
 
   public wrapWithRegion() {
-    var regionWrapper = new RegionWrapperService(this._configService);
-    regionWrapper.wrapCurrentWithRegion();
+    return new RegionWrapperService(
+      this._configService,
+    ).wrapCurrentWithRegion();
   }
 
   private registerFoldingRangeProvider() {
     const supportedLanguages = this._configService.getSupportedLanguages();
-    const foldingRangeProvider = new Maptz.MyFoldingRangeProvider(
-      this._configService,
-    );
+    const foldingRangeProvider = new CustomFolding(this._configService);
     console.log('Registering folding range provider');
     vscode.languages.registerFoldingRangeProvider(
       supportedLanguages,
@@ -306,11 +258,8 @@ export class Engine {
     return foldingRangeProvider;
   }
 
-  /**
-   *
-   */
   constructor(configService: config.ConfigurationService) {
-    var self = this;
+    const self = this;
     this._configService = configService;
     this._foldingRangeProvider = this.registerFoldingRangeProvider();
 
@@ -318,10 +267,10 @@ export class Engine {
     this._fileMonitor.onFileOpened.add(function (doc) {
       console.log('File opened: ' + doc.fileName + ' lid: ' + doc.languageId);
       if (doc.languageId) {
-        //HMM HACK! No texteditor defined for document when this event has been called.
-        var collapseOnlyDefaults = true;
+        // HACK: No texteditor defined for document when this event has been called.
+        const collapseOnlyDefaults = true;
         setTimeout(() => {
-          var options = self._configService.getOptions();
+          const options = self._configService.getOptions();
           const collapseOnOpen = !!options.collapseDefaultRegionsOnOpen;
           console.log(
             'expo.regionfolder.collapseDefaultRegionsOnOpen:' + collapseOnOpen,
@@ -336,10 +285,6 @@ export class Engine {
       console.log('File closing: ' + doc.fileName);
     });
     this._fileMonitor.onLanguageIdChanged.add(function (doc, oldLID, newLID) {
-      // vscode.window.showTextDocument(doc, 1, false).then(e => {
-      //     e.edit(edit => {
-      //         edit.insert(new vscode.Position(0, 0), "Your advertisement here");
-      //     });
       console.log('FileMonitor has detected change in language: ' + newLID);
 
       if (newLID) {
@@ -354,9 +299,8 @@ export class Engine {
       }
     });
 
-    for (let vte of vscode.window.visibleTextEditors) {
+    for (const vte of vscode.window.visibleTextEditors)
       this._fileMonitor.manuallyRegisterDocument(vte.document);
-    }
   }
 }
 /* #endregion */

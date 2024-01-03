@@ -38,8 +38,8 @@ export class RegionTag {
     tagType: RegionTagType,
     lineNumber: number,
   ) {
-    var name = regExpMatch.length > 1 ? regExpMatch[1] : '';
-    var regionTag = new RegionTag(tagType);
+    const name = regExpMatch.length > 1 ? regExpMatch[1] : '';
+    const regionTag = new RegionTag(tagType);
     regionTag.startCharacter = regExpMatch.index;
     regionTag.endCharacter = regExpMatch[0].length;
     regionTag.name = name;
@@ -56,28 +56,19 @@ export class CustomRegion {
   public endRegionTag: RegionTag;
 
   public contains(pos: vscode.Position) {
-    var ln = pos.line;
-    return ln >= this.lineStart && ln <= this.lineEnd;
+    const { line } = pos;
+    return line >= this.lineStart && line <= this.lineEnd;
   }
   public get lineStart(): number {
-    if (this.startRegionTag) {
-      return this.startRegionTag.lineNumber;
-    }
-    return -1;
+    return this.startRegionTag?.lineNumber ?? -1;
   }
 
   public get lineEnd(): number {
-    if (this.endRegionTag) {
-      return this.endRegionTag.lineNumber;
-    }
-    return -1;
+    return this.endRegionTag?.lineNumber ?? -1;
   }
 
   public get name(): string {
-    if (this.startRegionTag && this.startRegionTag.name) {
-      return this.startRegionTag.name;
-    }
-    return '';
+    return this.startRegionTag?.name ?? '';
   }
 
   public isDefaultRegion: boolean = false;
@@ -99,9 +90,8 @@ export class RegionProvider {
     return this._configurationService;
   }
   public set configuration(value: config.ConfigurationService) {
-    if (this._configurationService !== value) {
+    if (this._configurationService !== value)
       this._configurationService = value;
-    }
   }
 
   constructor(configService: config.ConfigurationService) {
@@ -119,48 +109,45 @@ export class RegionProvider {
 
     const currentLanguageConfig =
       this._configurationService.getConfigurationForLanguage(languageId);
-    if (!currentLanguageConfig) {
+    if (!currentLanguageConfig)
       return {
         completedRegions: [],
         errors: [],
       };
-    }
 
     let foldDefinitions = <IFoldConfiguration[]>[currentLanguageConfig];
-    if (currentLanguageConfig.foldDefinitions) {
-      for (let foldDefinition of currentLanguageConfig.foldDefinitions) {
+    if (currentLanguageConfig.foldDefinitions)
+      for (let foldDefinition of currentLanguageConfig.foldDefinitions)
         foldDefinitions.push(foldDefinition);
-      }
-    }
 
-    var completedRegions: CustomRegion[] = [];
-    var text = document.getText();
-    var lines = text.split('\n');
+    const completedRegions: CustomRegion[] = [];
+    const text = document.getText();
+    const lines = text.split('\n');
 
-    var errors = [];
+    const errors: string[] = [];
     for (let foldDefinition of foldDefinitions) {
-      var startedRegions: CustomRegion[] = [];
-      var start = new RegExp(foldDefinition.foldStartRegex, 'i'); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-      var end = new RegExp(foldDefinition.foldEndRegex, 'i');
+      const startedRegions: CustomRegion[] = [];
+      const start = new RegExp(foldDefinition.foldStartRegex, 'i'); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+      const end = new RegExp(foldDefinition.foldEndRegex, 'i');
 
       for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-        var line = lines[lineIndex];
+        const line = lines[lineIndex];
 
-        var startMatch = start.exec(line);
-        var endMatch = end.exec(line);
+        const startMatch = start.exec(line);
+        const endMatch = end.exec(line);
         if (startMatch) {
-          var startRegionTag = RegionTag.FromRegex(
+          const startRegionTag = RegionTag.FromRegex(
             startMatch,
             RegionTagType.Start,
             lineIndex,
           );
-          var customRegion = new CustomRegion(startRegionTag);
+          const customRegion = new CustomRegion(startRegionTag);
 
           if ((<ILanguageConfiguration>foldDefinition).defaultFoldStartRegex) {
-            var regexPatt = <string>(
+            const regexPatt = <string>(
               (<ILanguageConfiguration>foldDefinition).defaultFoldStartRegex
             );
-            var defaultRE = new RegExp(regexPatt, 'i');
+            const defaultRE = new RegExp(regexPatt, 'i');
             if (defaultRE.exec(line)) {
               customRegion.isDefaultRegion = true;
             }
@@ -175,13 +162,13 @@ export class RegionProvider {
             );
             continue;
           }
-          var endTag = RegionTag.FromRegex(
+          const endTag = RegionTag.FromRegex(
             endMatch,
             RegionTagType.End,
             lineIndex,
           );
-          var lastStartedRegion = startedRegions[startedRegions.length - 1];
-          var finishedRegion = new CustomRegion(
+          const lastStartedRegion = startedRegions[startedRegions.length - 1];
+          const finishedRegion = new CustomRegion(
             lastStartedRegion.startRegionTag,
             endTag,
           );
