@@ -5,7 +5,7 @@
   "version": "1.1.0",
   "homepage": "https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/ReadMe.md",
   "repository": "https://github.com/Exponential-Workload/regionfolder",
-  "publisher": "maptz",
+  "publisher": "expo",
   "engines": {
     "vscode": "^1.76.0"
   },
