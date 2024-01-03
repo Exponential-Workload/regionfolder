@@ -79,7 +79,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "build": "esbuild src/extension.ts --bundle --minify --packages=external --platform=node --format=cjs --outfile=out/extension.js",
+    "build": "esbuild src/extension.ts --bundle --minify --packages=external --platform=node --format=cjs --sourcemap --outfile=out/extension.js",
     "watch": "pnpm compile --watch",
     "pretest": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
     "lint": "prettier -c src",
