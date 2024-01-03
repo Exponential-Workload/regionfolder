@@ -12,10 +12,7 @@ export class RegionService {
   document: vscode.TextDocument;
   regions: CustomRegion[];
 
-  /**
-   *
-   */
-  constructor(
+  public constructor(
     configService: config.ConfigurationService,
     document: vscode.TextDocument,
   ) {
@@ -23,9 +20,11 @@ export class RegionService {
     this.document = document;
     this.regions = [];
   }
+
   public update() {
-    var result = this.regionProvider.getRegions(this.document);
-    this.regions = result.completedRegions;
+    this.regions = this.regionProvider.getRegions(
+      this.document,
+    ).completedRegions;
   }
 
   public getRegions() {
@@ -33,32 +32,22 @@ export class RegionService {
     return this.regions;
   }
 
-  public currentRegions(): CustomRegion[] {
+  public getCurrentRegions(): CustomRegion[] {
     this.update();
-    var ate = vscode.window.activeTextEditor;
-    if (!ate) {
-      return [];
-    }
-    if (this.document !== ate.document) {
-      return [];
-    }
-    var surroundingRegions = [];
-    for (let reg of this.regions) {
-      if (reg.contains(ate.selection.active)) {
+    const { activeTextEditor } = vscode.window;
+    if (!activeTextEditor) return [];
+    if (this.document !== activeTextEditor.document) return [];
+    const surroundingRegions: CustomRegion[] = [];
+    for (let reg of this.regions)
+      if (reg.contains(activeTextEditor.selection.active))
         surroundingRegions.push(reg);
-      }
-    }
     return surroundingRegions;
   }
 
   public currentRegion(): CustomRegion | null {
-    var currentRegions = this.currentRegions();
-    if (currentRegions.length === 0) {
-      return null;
-    }
-
+    const currentRegions = this.getCurrentRegions();
+    if (currentRegions.length === 0) return null;
     return currentRegions[0];
-    return currentRegions[currentRegions.length - 1];
   }
 }
 /* #endregion */

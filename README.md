@@ -1,3 +1,7 @@
+## Note
+
+This is a hard-fork of the upstream extension by Maptz. This fork exists as the code style in the upstream codebase is some of the least consistent, horribly thought-out shit ever. It mixes `var` with `let`/`const` constantly, amongst other shit.
+
 # Visual Studio Code Custom Folding Extension
 
 This extension enhances the default code folding abilities of Visual Studio Code editor. Regions of code that you'd like to be folded can be wrapped with `#region` comments.

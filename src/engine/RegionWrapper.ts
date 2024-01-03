@@ -9,89 +9,77 @@ import * as config from '../config/Configuration';
 /* #region  RegionWrapperService */
 export class RegionWrapperService {
   _configService: config.ConfigurationService;
-  /**
-   *
-   */
+
   constructor(configService: config.ConfigurationService) {
     this._configService = configService;
   }
 
   public wrapCurrentWithRegion() {
-    var ate = vscode.window.activeTextEditor;
-    if (!ate) {
-      return;
-    }
-    let document = ate.document;
-    if (!document) {
-      return;
-    }
+    const { activeTextEditor } = vscode.window;
+    if (!activeTextEditor) return;
+    let document = activeTextEditor.document;
+    if (!document) return;
 
     let currentLanguageConfig =
       this._configService.getConfigurationForCurrentLanguage(
         document.languageId,
       );
-    if (!currentLanguageConfig) {
-      return;
-    }
+    if (!currentLanguageConfig) return;
 
     /* #region Check if there is anything selected. */
-    if (ate.selections.length > 1 || ate.selections.length < 1) {
+    if (
+      activeTextEditor.selections.length > 1 ||
+      activeTextEditor.selections.length < 1
+    )
       return;
-    }
 
-    var sel = ate.selection;
-    if (sel.isEmpty) {
-      return;
-    }
+    const { selection } = activeTextEditor;
+    if (selection.isEmpty) return;
     /* #endregion */
 
-    var linePrefix = ate.document.getText(
-      new vscode.Range(new vscode.Position(sel.start.line, 0), sel.start),
+    const linePrefix = activeTextEditor.document.getText(
+      new vscode.Range(
+        new vscode.Position(selection.start.line, 0),
+        selection.start,
+      ),
     );
-    var addPrefix = '';
-    if (/^\s+$/.test(linePrefix)) {
-      addPrefix = linePrefix;
-    }
-    var eol = this.getEOLStr(ate.document.eol);
+    const addPrefix = /^\s+$/.test(linePrefix) ? linePrefix : '';
+    const eol = this.getEOLStr(activeTextEditor.document.eol);
 
     //Get the position of [NAME] in the fold start template.
     let regionStartTemplate = currentLanguageConfig.foldStart;
     const idx = regionStartTemplate.indexOf('[NAME]');
     const nameInsertionIndex =
-      idx < 0 ? 0 : regionStartTemplate.length - '[NAME]'.length - idx;
+      idx < 0 ? 0 : regionStartTemplate.length - 6 /* '[NAME]'.length */ - idx;
     const regionStartText = regionStartTemplate.replace('[NAME]', '');
 
-    ate
+    activeTextEditor
       .edit(edit => {
-        if (!currentLanguageConfig) {
-          return;
-        }
-        if (!ate) {
-          return;
-        }
-        //Insert the #region, #endregion tags
-        edit.insert(sel.end, eol + addPrefix + currentLanguageConfig.foldEnd);
-        edit.insert(sel.start, regionStartText + eol + addPrefix);
+        if (!currentLanguageConfig) return;
+        if (!activeTextEditor) return;
+        // Insert the #region, #endregion tags
+        edit.insert(
+          selection.end,
+          eol + addPrefix + currentLanguageConfig.foldEnd,
+        );
+        edit.insert(selection.start, regionStartText + eol + addPrefix);
       })
-      .then(edit => {
-        if (!currentLanguageConfig) {
-          return;
-        }
-        if (!ate) {
-          return;
-        }
+      .then(() => {
+        if (!currentLanguageConfig) return;
+        if (!activeTextEditor) return;
 
-        //Now, move the selection point to the [NAME] position.
-        var sel = ate.selection;
-        var newLine = sel.start.line - 1;
-        var newChar =
-          ate.document.lineAt(newLine).text.length - nameInsertionIndex;
-        var newStart = sel.start.translate(
+        // Now, move the selection point to the [NAME] position.
+        const sel = activeTextEditor.selection;
+        const newLine = sel.start.line - 1;
+        const newChar =
+          activeTextEditor.document.lineAt(newLine).text.length -
+          nameInsertionIndex;
+        const newStart = sel.start.translate(
           newLine - sel.start.line,
           newChar - sel.start.character,
         );
-        var newSelection = new vscode.Selection(newStart, newStart);
-        ate.selections = [newSelection];
+        const newSelection = new vscode.Selection(newStart, newStart);
+        activeTextEditor.selections = [newSelection];
 
         //Format the document
         vscode.commands.executeCommand(
@@ -103,9 +91,7 @@ export class RegionWrapperService {
   }
 
   private getEOLStr(eol: vscode.EndOfLine) {
-    if (eol === vscode.EndOfLine.CRLF) {
-      return '\r\n';
-    }
+    if (eol === vscode.EndOfLine.CRLF) return '\r\n';
     return '\n';
   }
 }
