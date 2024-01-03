@@ -6,7 +6,6 @@ export interface ILanguageConfiguration extends IFoldConfiguration {
   foldDefinitions?: IFoldConfiguration[];
 }
 
-
 export interface IFoldConfiguration {
   foldEnd: string;
   foldEndRegex: string;
@@ -15,7 +14,7 @@ export interface IFoldConfiguration {
   isFoldedByDefault?: boolean;
 }
 
-export interface IConfiguration  {
+export interface IConfiguration {
   [languageName: string]: ILanguageConfiguration;
 }
 
@@ -23,5 +22,3 @@ export interface IOptionsConfiguration {
   collapseDefaultRegionsOnOpen: boolean;
   showRegionsInOutline: boolean;
 }
-
-
