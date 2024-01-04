@@ -197,7 +197,3 @@ If you have a new language that you've supported using the custom configuration,
 ## Source Code
 
 The source code is available on GitHub [here](https://github.com/Exponential-Workload/regionfolder).
-
-## Other Extensions
-
-View other extensions from [maptz](https://marketplace.visualstudio.com/publishers/maptz)
