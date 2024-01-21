@@ -1,5 +1,5 @@
 {
-  "name": "3xpo.regionfolder",
+  "name": "regionfolding",
   "displayName": "#region folding for VS Code",
   "description": "Provides folding for text wrapped with #region comments in VS Code.",
   "version": "1.1.0",
