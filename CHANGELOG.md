@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Version 1.0.20
 
-- Added an experimental feature which adds #regions to the Outline window. Set the `expo.regionfolder.showRegionsInOutline` setting equal to `true`.
+- Added an experimental feature which adds #regions to the Outline window. Set the `3xpo.regionfolder.showRegionsInOutline` setting equal to `true`.
 
 ### Version 1.0.19
 
@@ -51,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ```json
 {
-  "expo.regionfolder": {
+  "3xpo.regionfolder": {
     "[javascript]": {
       "foldEnd": "/* #endregion */",
       "foldEndRegex": "/\\*[\\s]*#endregion",

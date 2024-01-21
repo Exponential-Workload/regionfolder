@@ -41,7 +41,7 @@ export class ConfigurationService {
     let loadedConfig = <config.IOptionsConfiguration>(
       vscode.workspace
         .getConfiguration()
-        .get<config.IOptionsConfiguration>('expo.regionfolder')
+        .get<config.IOptionsConfiguration>('3xpo.regionfolder')
     );
 
     let config: config.IOptionsConfiguration = Object.assign(
@@ -58,7 +58,7 @@ export class ConfigurationService {
     let loadedConfig = <config.IConfiguration>(
       vscode.workspace
         .getConfiguration()
-        .get<config.IConfiguration>('expo.regionfolder')
+        .get<config.IConfiguration>('3xpo.regionfolder')
     );
 
     let config: config.IConfiguration = Object.assign(

@@ -273,7 +273,7 @@ export class Engine {
           const options = self._configService.getOptions();
           const collapseOnOpen = !!options.collapseDefaultRegionsOnOpen;
           console.log(
-            'expo.regionfolder.collapseDefaultRegionsOnOpen:' + collapseOnOpen,
+            '3xpo.regionfolder.collapseDefaultRegionsOnOpen:' + collapseOnOpen,
           );
           if (collapseOnOpen) {
             self.collapseAllRegions(doc, collapseOnlyDefaults);
@@ -291,7 +291,7 @@ export class Engine {
         const options = self._configService.getOptions();
         const collapseOnOpen = !!options.collapseDefaultRegionsOnOpen;
         console.log(
-          'expo.regionfolder.collapseDefaultRegionsOnOpen: ' + collapseOnOpen,
+          '3xpo.regionfolder.collapseDefaultRegionsOnOpen: ' + collapseOnOpen,
         );
         if (collapseOnOpen) {
           self.collapseAllRegions(doc);
