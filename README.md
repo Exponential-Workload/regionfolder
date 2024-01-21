@@ -1,6 +1,6 @@
 ## Note
 
-This is a hard-fork of the upstream extension by Maptz. This fork exists as the code style in the upstream codebase is some of the least consistent, horribly thought-out shit ever. It mixes `var` with `let`/`const` constantly, amongst other shit.
+This is a hard-fork of the upstream extension by Maptz. This fork exists as the code style in the upstream codebase is extremely bad in my subjective opinion. It mixes `var` with `let`/`const` constantly, amongst other things like that.
 
 # Visual Studio Code Custom Folding Extension
 
