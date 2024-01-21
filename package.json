@@ -1,6 +1,6 @@
 {
   "name": "regionfolding",
-  "displayName": "#region folding for VS Code",
+  "displayName": "#region folding",
   "description": "Provides folding for text wrapped with #region comments in VS Code.",
   "version": "1.1.0",
   "homepage": "https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/README.md",
