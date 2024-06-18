@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eax
+set -e
 
 command_exists() {
   command -v "$@" > /dev/null 2>&1;
@@ -60,22 +60,24 @@ if [[ "$PRERELEASE" == "true" ]]; then
   CHANGELOGEN_ARGS+=("--prerelease")
 fi;
 
-pnpm changelogen --from "$FROM" ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" --output /tmp/changelog
+rm -rf /tmp/changelog.md
+pnpm changelogen --from "$FROM" ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" --output /tmp/changelog.md
 
-sed -i 's/# Changelog//g' /tmp/changelog
+sed -i 's/# Changelog//g' /tmp/changelog.md
 echo "Please review/modify the changelog as you please, then exit your editor to continue..."
+prettier -w /tmp/changelog.md
 sleep 0.5;
-command_exists $EDITOR && $EDITOR /tmp/changelog || command_exists codium && codium --wait /tmp/changelog || command_exists code && code --wait /tmp/changelog || nano /tmp/changelog
-CHANGELOG="$(cat /tmp/changelog)"
-rm /tmp/changelog
+command_exists $EDITOR && $EDITOR /tmp/changelog.md || command_exists codium && codium --wait /tmp/changelog.md || command_exists code && code --wait /tmp/changelog.md || nano /tmp/changelog.md
+CHANGELOG="$(cat /tmp/changelog.md)"
+rm /tmp/changelog.md
 
-cp CHANGELOG.md /tmp/changelog
-sed -i 's/# Changelog//g' /tmp/changelog
+cp CHANGELOG.md /tmp/changelog.md
+sed -i 's/# Changelog//g' /tmp/changelog.md
 echo -e "# Changelog
 
 $CHANGELOG
-$(cat /tmp/changelog)" > CHANGELOG.md
-rm /tmp/changelog
+$(cat /tmp/changelog.md)" > CHANGELOG.md
+rm /tmp/changelog.md
 
 prettier -w CHANGELOG.md
 
