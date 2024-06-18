@@ -96,5 +96,6 @@ $CHANGELOG
 Released by $(git config user.name) ($(git config user.email))"
 
 git tag -s "v$RELEASE" -m "Changelog:
-$CHANGELOG"
+$(sed 's/#/>/g' <<< "$CHANGELOG")"
+git push origin
 git push origin --tag
