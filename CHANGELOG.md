@@ -1,23 +1,83 @@
-# Change Log
+# Changelog
 
-All notable changes to the extension will be documented in this file.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## v1.2.0
 
-### Version 1.2.0
+[compare changes](https://github.com/Exponential-Workload/regionfolder/compare/v1.1.0...v1.2.0)
 
-- Language Support Added:
-  - Docker
-  - Docker Compose
-  - Plaintext
-- Upgrade Dependencies
-- Small Internal Changes
-- Web Support
+### 🚀 Enhancements
 
-### Version 1.1.0
+- Docker, docker compose, text support ([6810095](https://github.com/Exponential-Workload/regionfolder/commit/6810095))
+- Web!!! ([405d1a2](https://github.com/Exponential-Workload/regionfolder/commit/405d1a2))
 
-- Major Refactor
+### 🩹 Fixes
+
+- Word it a bit nicer ([6ca9980](https://github.com/Exponential-Workload/regionfolder/commit/6ca9980))
+- Add 2024 copyright ([6147524](https://github.com/Exponential-Workload/regionfolder/commit/6147524))
+- Re-order pkg ([a8439f3](https://github.com/Exponential-Workload/regionfolder/commit/a8439f3))
+- Use template str ([817ac31](https://github.com/Exponential-Workload/regionfolder/commit/817ac31))
+- Use switch for better extensibility ([aeb3dd4](https://github.com/Exponential-Workload/regionfolder/commit/aeb3dd4))
+- Changelog, upgrade deps ([d167c68](https://github.com/Exponential-Workload/regionfolder/commit/d167c68))
+- We are NOT using esbuild ([d1ef853](https://github.com/Exponential-Workload/regionfolder/commit/d1ef853))
+- Use dist, not out ([7a1f846](https://github.com/Exponential-Workload/regionfolder/commit/7a1f846))
+- This wasnt a real test script, let's error as such ([cc5d3e2](https://github.com/Exponential-Workload/regionfolder/commit/cc5d3e2))
+- It's v1.2.0 not v1.1.1 ([e2524e7](https://github.com/Exponential-Workload/regionfolder/commit/e2524e7))
+
+### 🏡 Chore
+
+- Use out/ for vsix files ([c4e7fc2](https://github.com/Exponential-Workload/regionfolder/commit/c4e7fc2))
+- Recommend self ([9f27b20](https://github.com/Exponential-Workload/regionfolder/commit/9f27b20))
+
+### ❤️ Contributors
+
+- Expo <expo@expo.moe>
+
+## v1.1.0
+
+[compare changes](https://github.com/Exponential-Workload/regionfolder/compare/v1.0.22...v1.1.0)
+
+### 🩹 Fixes
+
+- Fix Casing ([14fc782](https://github.com/Exponential-Workload/regionfolder/commit/14fc782))
+- Link elsewhere ([c1846b8](https://github.com/Exponential-Workload/regionfolder/commit/c1846b8))
+- Eslint sucks, use prettier ([f5dda7d](https://github.com/Exponential-Workload/regionfolder/commit/f5dda7d))
+- We use esbuild in this household ([7d891bd](https://github.com/Exponential-Workload/regionfolder/commit/7d891bd))
+- Ig sourcemaps are also nice ([a679e24](https://github.com/Exponential-Workload/regionfolder/commit/a679e24))
+- Format json ([8e61c31](https://github.com/Exponential-Workload/regionfolder/commit/8e61c31))
+- Properly define shit ([efaf675](https://github.com/Exponential-Workload/regionfolder/commit/efaf675))
+- "OLD CODE" seeing that is what version control is for ([0210e06](https://github.com/Exponential-Workload/regionfolder/commit/0210e06))
+- The test suite is a joke, there are no tests ([c929896](https://github.com/Exponential-Workload/regionfolder/commit/c929896))
+- Format IConfig ([a3381ee](https://github.com/Exponential-Workload/regionfolder/commit/a3381ee))
+- Does this guy know how to code? ([08ddf01](https://github.com/Exponential-Workload/regionfolder/commit/08ddf01))
+- The use of var interspersed with let/const is mind-blowing can this guy not just use either var or let/const??? ([dde24d9](https://github.com/Exponential-Workload/regionfolder/commit/dde24d9))
+- Does this guy know how to code? yet another formatting commit ([97861c1](https://github.com/Exponential-Workload/regionfolder/commit/97861c1))
+- Remove unused import ([b089905](https://github.com/Exponential-Workload/regionfolder/commit/b089905))
+- Final formatting commit, hopefully ([08e146e](https://github.com/Exponential-Workload/regionfolder/commit/08e146e))
+- Fix a minor oopsie ([87ad819](https://github.com/Exponential-Workload/regionfolder/commit/87ad819))
+- Rename ([8896641](https://github.com/Exponential-Workload/regionfolder/commit/8896641))
+- What does vscode want ([57119af](https://github.com/Exponential-Workload/regionfolder/commit/57119af))
+- Newline at eof ([a82e6e3](https://github.com/Exponential-Workload/regionfolder/commit/a82e6e3))
+- No issues.txt; thats what github issues are for ([b23f9fe](https://github.com/Exponential-Workload/regionfolder/commit/b23f9fe))
+- Change publisher ([23e8c3e](https://github.com/Exponential-Workload/regionfolder/commit/23e8c3e))
+- We dont do \_prebuild/\_publish in this part of town ([9f73145](https://github.com/Exponential-Workload/regionfolder/commit/9f73145))
+- Use 3xpo as id ([e9cc444](https://github.com/Exponential-Workload/regionfolder/commit/e9cc444))
+- Set name to 3xpo.regionfolder ([55c3dfe](https://github.com/Exponential-Workload/regionfolder/commit/55c3dfe))
+- Change icon ([aab8dd5](https://github.com/Exponential-Workload/regionfolder/commit/aab8dd5))
+- Another name change i hate vsc ([1d7560a](https://github.com/Exponential-Workload/regionfolder/commit/1d7560a))
+- Rename display name ([c443504](https://github.com/Exponential-Workload/regionfolder/commit/c443504))
+
+### 🏡 Chore
+
+- Generally improve everything ([96692f0](https://github.com/Exponential-Workload/regionfolder/commit/96692f0))
+
+### ❤️ Contributors
+
+- Exponential-Workload <cc@aaathats3as.com>
+
+## Legacy Versions
+
+Below are the versions of the pre-forked repository. We cannot offer support for them.
 
 ### Version 1.0.22
 
