@@ -5,6 +5,19 @@ All notable changes to the extension will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Version 1.1.1
+
+- Language Support Added:
+  - Docker
+  - Docker Compose
+  - Plaintext
+- Upgrade Dependencies
+- Internal Changes
+
+### Version 1.1.0
+
+- Major Refactor
+
 ### Version 1.0.22
 
 - Changed activation to `onStartupFinshed`. Thanks [justingrote](https://github.com/Exponential-Workload/regionfolder/pull/115)
