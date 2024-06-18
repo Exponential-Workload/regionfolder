@@ -1,7 +1,7 @@
 {
   "name": "regionfolding",
   "displayName": "#region folding",
-  "version": "1.2.1-alpha1",
+  "version": "1.2.1-alpha2",
   "description": "Provides folding for text wrapped with #region comments in VSCode.",
   "homepage": "https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/README.md",
   "repository": {

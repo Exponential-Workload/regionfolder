@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.2.1-alpha2
+
+[compare changes](https://github.com/Exponential-Workload/regionfolder/compare/v1.2.1-alpha1...v1.2.1-alpha2)
+
+### 🚀 Enhancements
+
+- Provide new preview ([c184272](https://github.com/Exponential-Workload/regionfolder/commit/c184272))
+- Symlink from CSharp`...`.gif to region-wrapping.webp ([c184272](https://github.com/Exponential-Workload/regionfolder/commit/c184272))
+
+### 🩹 Fixes
+
+- **release-script:** Use > instead of # in tag messages ([f8cf39f](https://github.com/Exponential-Workload/regionfolder/commit/f8cf39f))
+- Lowercase icon.png ([a941fc1](https://github.com/Exponential-Workload/regionfolder/commit/a941fc1))
+- Update links, and add openvsx ([f0e0a4e](https://github.com/Exponential-Workload/regionfolder/commit/f0e0a4e))
+
+### ❤️ Contributors
+
+- Expo <expo@expo.moe>
+
 ## v1.2.1-alpha1
 
 [compare changes](https://github.com/Exponential-Workload/regionfolder/compare/v1.2.0...v1.2.1-alpha1)
