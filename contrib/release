@@ -56,8 +56,8 @@ if [[ "$PRERELEASE" == "true" ]]; then
 fi;
 
 gen_changelog() {
-  pnpm changelogen --bump --no-tag ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" $@
+  pnpm changelogen --no-tag ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" $@
 }
-gen_changelog --no-output > .git/TAG_EDITMSG
+gen_changelog --bump --no-output > .git/TAG_EDITMSG
 gen_changelog
 git tag -s "v$RELEASE"
