@@ -62,6 +62,18 @@ export const defaultConfiguration: IConfig.IConfiguration = {
     foldStart: '// #region [NAME]',
     foldStartRegex: '//[\\s]*#region[\\s]*(.*)',
   },
+  '[dockerfile]': {
+    foldStart: '#region [NAME]',
+    foldEnd: '#endregion',
+    foldStartRegex: '.*#region[\\s]*(.*)',
+    foldEndRegex: '.*#endregion',
+  },
+  '[dockercompose]': {
+    foldStart: '#region [NAME]',
+    foldEnd: '#endregion',
+    foldStartRegex: '.*#region[\\s]*(.*)',
+    foldEndRegex: '.*#endregion',
+  },
   '[fish]': {
     foldEnd: '#endregion',
     foldEndRegex: '[\\s]*#endregion',
@@ -208,6 +220,12 @@ export const defaultConfiguration: IConfig.IConfiguration = {
     foldEndRegex: '//[\\s]*#endregion',
     foldStart: '// #region [NAME]',
     foldStartRegex: '//[\\s]*#region[\\s]*(.*)',
+  },
+  '[text]': {
+    foldEnd: '#endregion',
+    foldEndRegex: '/^[\\s]*#endregion',
+    foldStart: '#region [NAME]',
+    foldStartRegex: '^[\\s]*#region[\\s]*(.*)[\\s]*$',
   },
   '[typescript]': {
     foldEnd: '/* #endregion */',
