@@ -63,6 +63,9 @@ fi;
 pnpm changelogen --from "$FROM" ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" --output /tmp/changelog
 
 sed -i 's/# Changelog//g' /tmp/changelog
+echo "Please review/modify the changelog as you please, then exit your editor to continue..."
+sleep 0.5;
+command_exists $EDITOR && $EDITOR /tmp/changelog || command_exists codium && codium --wait /tmp/changelog || command_exists code && code --wait /tmp/changelog || nano /tmp/changelog
 CHANGELOG="$(cat /tmp/changelog)"
 rm /tmp/changelog
 
