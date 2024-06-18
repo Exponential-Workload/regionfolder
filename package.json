@@ -36,8 +36,8 @@
     "test:desktop": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
     "check-types": "tsc --noEmit",
     "run-in-browser": "vscode-test-web --browserType=firefox --extensionDevelopmentPath=. .",
-    "package": "vsce package -o regionfolder.vsix",
-    "start": "pnpm package && code --install-extension regionfolder.vsix"
+    "package": "vsce package -o out/regionfolder.vsix",
+    "start": "pnpm package && code --install-extension out/regionfolder.vsix"
   },
   "devDependencies": {
     "@3xpo/pkgmetatool": "^0.1.8",
