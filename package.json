@@ -64,7 +64,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "icon": "imgs/Icon.png",
+  "icon": "imgs/icon.png",
   "contributes": {
     "commands": [
       {
