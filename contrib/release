@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eax
 
 command_exists() {
   command -v "$@" > /dev/null 2>&1;
@@ -31,7 +31,6 @@ while [[ $# -gt 0 ]]; do
     -p|prerelease)
       export PRERELEASE=true
       shift # past argument
-      shift # past value
       ;;
     -*|--*)
       echo "Unknown option $1"
@@ -47,7 +46,7 @@ set -- "${POSITIONAL_ARGS[@]}"
 
 export RELEASE="$1"
 if [[ "$RELEASE" == "" ]]; then
-  echo "Usage: $0 <release-name> [--from <last-release>] [--prerelease]" 1>&2;
+  echo "Usage: $0 <release-name-without-prefix> [--from <last-release>] [--prerelease]" 1>&2;
   exit 1;
 fi
 
@@ -61,4 +60,4 @@ gen_changelog() {
 }
 gen_changelog --no-output > .git/TAG_EDITMSG
 gen_changelog
-git tag -s "$RELEASE"
+git tag -s "v$RELEASE"
