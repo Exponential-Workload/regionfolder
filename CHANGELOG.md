@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file. See [standa
 - Use template str ([817ac31](https://github.com/Exponential-Workload/regionfolder/commit/817ac31))
 - Use switch for better extensibility ([aeb3dd4](https://github.com/Exponential-Workload/regionfolder/commit/aeb3dd4))
 - Changelog, upgrade deps ([d167c68](https://github.com/Exponential-Workload/regionfolder/commit/d167c68))
-- We are NOT using esbuild ([d1ef853](https://github.com/Exponential-Workload/regionfolder/commit/d1ef853))
+- We are NOT using eslint ([d1ef853](https://github.com/Exponential-Workload/regionfolder/commit/d1ef853))
 - Use dist, not out ([7a1f846](https://github.com/Exponential-Workload/regionfolder/commit/7a1f846))
 - This wasnt a real test script, let's error as such ([cc5d3e2](https://github.com/Exponential-Workload/regionfolder/commit/cc5d3e2))
 - It's v1.2.0 not v1.1.1 ([e2524e7](https://github.com/Exponential-Workload/regionfolder/commit/e2524e7))
