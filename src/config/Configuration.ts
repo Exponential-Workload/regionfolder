@@ -103,9 +103,7 @@ export class ConfigurationService {
       !currentLanguageConfig
     ) {
       vscode.window.showInformationMessage(
-        "maptz Region Folding. No region folding available for language '" +
-          languageId +
-          "'. Check that you have the language extension installed for these files.",
+        `No region folding available for language ${languageId}. Check that you have the language extension installed for these files.`,
       );
       return null;
     }
