@@ -5,4 +5,4 @@ node_modules
 
 .vs/
 
-package-lock.json
+.vscode-test*

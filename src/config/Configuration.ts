@@ -1,11 +1,11 @@
-/* #region  Imports */
+/* #region Imports */
 'use strict';
 import * as vscode from 'vscode';
 import * as config from './IConfiguration';
 import * as defaultConfig from './DefaultConfiguration';
 /* #endregion */
 
-/* #region  ConfigurationService */
+/* #region ConfigurationService */
 export class ConfigurationService {
   public onConfigurationChanged: (() => void) | null = null;
   constructor(context: vscode.ExtensionContext) {

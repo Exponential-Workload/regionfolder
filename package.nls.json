@@ -1,0 +1,4 @@
+{
+	"displayName": "#region folding",
+  "description": "Provides folding for text wrapped with #region comments in VSCode."
+}

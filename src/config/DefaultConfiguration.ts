@@ -95,7 +95,7 @@ export const defaultConfiguration: IConfig.IConfiguration = {
   '[javascript]': {
     foldEnd: '/* #endregion */',
     foldEndRegex: '/\\*[\\s]*#endregion',
-    foldStart: '/* #region  [NAME] */',
+    foldStart: '/* #region [NAME] */',
     foldStartRegex: '^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$',
   },
   '[javascriptreact]': {
@@ -119,7 +119,7 @@ export const defaultConfiguration: IConfig.IConfiguration = {
   '[jsonc]': {
     foldEnd: '/* #endregion */',
     foldEndRegex: '/\\*[\\s]*#endregion',
-    foldStart: '/* #region  [NAME] */',
+    foldStart: '/* #region [NAME] */',
     foldStartRegex: '^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$',
   },
   '[lua]': {
@@ -200,7 +200,7 @@ export const defaultConfiguration: IConfig.IConfiguration = {
   '[scss]': {
     foldEnd: '/* #endregion */',
     foldEndRegex: '/\\*[\\s]*#endregion',
-    foldStart: '/* #region  [NAME] */',
+    foldStart: '/* #region [NAME] */',
     foldStartRegex: '^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$',
   },
   '[shellscript]': {

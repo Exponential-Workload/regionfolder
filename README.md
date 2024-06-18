@@ -2,6 +2,8 @@
 
 This is a hard-fork of the upstream extension by Maptz. This fork exists as the code style in the upstream codebase is extremely bad in my subjective opinion. It mixes `var` with `let`/`const` constantly, amongst other things like that.
 
+Oh and (as of v1.2.0) we have web support!
+
 # Visual Studio Code Custom Folding Extension
 
 This extension enhances the default code folding abilities of Visual Studio Code editor. Regions of code that you'd like to be folded can be wrapped with `#region` comments.
@@ -51,7 +53,7 @@ To provide a custom folding for your language create a settings in your vscode s
 
 ## Installing
 
-<!-- #region  -->
+<!-- #region -->
 
 You can install the latest version of the extension is available on the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=3xpo.regionfolder).
 

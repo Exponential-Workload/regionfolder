@@ -1,45 +1,61 @@
 {
   "name": "regionfolding",
   "displayName": "#region folding",
-  "version": "1.1.0",
-  "description": "Provides folding for text wrapped with #region comments in VS Code.",
+  "version": "1.2.0",
+  "description": "Provides folding for text wrapped with #region comments in VSCode.",
   "homepage": "https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/Exponential-Workload/regionfolder"
   },
   "main": "./out/extension",
+  "browser": "./out/web/extension",
   "exports": {
     ".": {
       "require": "./out/extension",
+      "browser": "./out/web/extension",
       "default": "./out/extension"
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run build",
-    "build": "esbuild src/extension.ts --bundle --minify --packages=external --platform=node --format=cjs --sourcemap --outfile=out/extension.js",
-    "watch": "pnpm build --watch",
-    "test": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
-    "lint": "prettier -c src",
-    "package": "vsce package -o regionfolder.vsix",
-    "start": "pnpm package && code --install-extension regionfolder.vsix"
+    "vscode:prepublish": "pnpm run build",
+    "esbuild:base": "esbuild src/extension.ts --bundle --minify --external:vscode --format=cjs --sourcemap",
+    "esbuild:web": "pnpm run esbuild:base --outfile=out/web/extension.js --platform=browser",
+    "esbuild:desktop": "pnpm run esbuild:base --outfile=out/extension.js --platform=node",
+    "build": "pnpm run check-types && npm-run-all -p build:*",
+    "build:web": "pnpm run esbuild:web",
+    "build:desktop": "pnpm run esbuild:desktop",
+    "watch:web": "npm-run-all -p watch-web:*",
+    "watch:web:esbuild": "node esbuild.js --watch",
+    "watch:web:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "pretest": "pnpm run build",
+    "pretest:web": "pnpm run build",
+    "pretest:desktop": "pnpm run build",
+    "test:web": "pnpm run run-in-browser",
+    "test:desktop": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
+    "check-types": "tsc --noEmit",
+    "run-in-browser": "vscode-test-web --browserType=firefox --extensionDevelopmentPath=. ."
   },
   "devDependencies": {
     "@3xpo/pkgmetatool": "^0.1.8",
-    "@types/glob": "^8.1.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@types/assert": "^1.5.10",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^20.14.4",
     "@types/vscode": "^1.90.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
     "@vscode/test-electron": "^2.4.0",
-    "@vscode/vsce": "^2.27.0",
-    "esbuild": "^0.21.5",
-    "glob": "^10.4.1",
+    "@vscode/test-web": "^0.0.54",
+    "assert": "^2.1.0",
+    "esbuild": "^0.20.2",
+    "glob": "^10.3.12",
     "mocha": "^10.4.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.3.2",
     "typescript": "^5.4.5"
   },
   "engines": {
-    "vscode": "^1.76.0"
+    "vscode": "^1.90.0"
   },
   "publisher": "3xpo",
   "categories": [
@@ -108,5 +124,10 @@
       }
     },
     "configurationDefaults": {}
+  },
+  "pnpm": {
+    "overrides": {
+      "@playwright/browser-chromium": "npm:@playwright/browser-firefox@^1.44.1"
+    }
   }
 }

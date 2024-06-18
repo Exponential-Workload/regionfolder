@@ -1,4 +1,4 @@
-/* #region  Imports */
+/* #region Imports */
 'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
@@ -10,7 +10,7 @@ import { RegionService } from './RegionServices';
 import { RegionWrapperService } from './RegionWrapper';
 /* #endregion */
 
-/* #region  Engine */
+/* #region Engine */
 export class Engine {
   private _foldingRangeProvider: CustomFolding | null = null;
   private _configService: config.ConfigurationService;

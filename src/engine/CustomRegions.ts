@@ -1,4 +1,4 @@
-/* #region  Imports */
+/* #region Imports */
 'use strict';
 import * as vscode from 'vscode';
 import * as config from './../config/Configuration';
@@ -8,7 +8,7 @@ import {
 } from './../config/IConfiguration';
 /* #endregion */
 
-/* #region  RegionTagType */
+/* #region RegionTagType */
 export enum RegionTagType {
   Unknown,
   Start,
@@ -16,7 +16,7 @@ export enum RegionTagType {
 }
 /* #endregion */
 
-/* #region  RegionTag */
+/* #region RegionTag */
 export class RegionTag {
   public regionTagType: RegionTagType;
   public startCharacter?: number;
@@ -50,7 +50,7 @@ export class RegionTag {
 }
 /* #endregion */
 
-/* #region  CustomRegion */
+/* #region CustomRegion */
 export class CustomRegion {
   public startRegionTag: RegionTag;
   public endRegionTag: RegionTag;
@@ -83,7 +83,7 @@ export class CustomRegion {
 }
 /* #endregion */
 
-/* #region  RegionProvider */
+/* #region RegionProvider */
 export class RegionProvider {
   private _configurationService: config.ConfigurationService;
   public get configuration() {

@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Docker Compose
   - Plaintext
 - Upgrade Dependencies
-- Internal Changes
+- Small Internal Changes
+- Web Support
 
 ### Version 1.1.0
 

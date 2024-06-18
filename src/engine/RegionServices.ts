@@ -1,4 +1,4 @@
-/* #region  Imports */
+/* #region Imports */
 'use strict';
 import * as vscode from 'vscode';
 
@@ -6,7 +6,7 @@ import * as config from './../config/Configuration';
 import { RegionProvider, CustomRegion } from './CustomRegions';
 /* #endregion */
 
-/* #region  RegionService */
+/* #region RegionService */
 export class RegionService {
   regionProvider: RegionProvider;
   document: vscode.TextDocument;

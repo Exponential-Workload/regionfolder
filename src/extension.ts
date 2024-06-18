@@ -6,7 +6,7 @@ import * as config from './config/Configuration';
 import { Engine } from './engine/Engine';
 
 export const activate = (context: vscode.ExtensionContext) => {
-  /* #region  Initial Activation */
+  /* #region Initial Activation */
   const configService = new config.ConfigurationService(context);
   const eng = new Engine(configService);
 

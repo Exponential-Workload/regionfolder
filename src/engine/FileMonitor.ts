@@ -1,11 +1,11 @@
-/* #region  Imports */
+/* #region Imports */
 'use strict';
 import * as vscode from 'vscode';
 /* #endregion */
 
-/* #region  DocumentRecord */
+/* #region DocumentRecord */
 class DocumentRecord {
-  public interval: NodeJS.Timer | null = null;
+  public interval: ReturnType<typeof setInterval> | null = null;
   public document: vscode.TextDocument;
   public languageId: string;
   public trackStartTime: Date = new Date();
@@ -17,7 +17,7 @@ class DocumentRecord {
 }
 /* #endregion */
 
-/* #region  EventHandler */
+/* #region EventHandler */
 class EventHandler<T extends (...args: any[]) => void> {
   private subscriptions: T[] = [];
 
@@ -55,7 +55,7 @@ export class FileMonitorSettings {
 }
 /* #endregion */
 
-/* #region  FileMonitor */
+/* #region FileMonitor */
 export class FileMonitor {
   public onLanguageIdChanged: EventHandler<
     (

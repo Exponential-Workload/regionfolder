@@ -1,4 +1,4 @@
-/* #region  Imports */
+/* #region Imports */
 'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
@@ -7,7 +7,7 @@ import * as config from '../config/Configuration';
 import * as r from './CustomRegions';
 /* #endregion */
 
-/* #region  CustomFoldingRangeProvider */
+/* #region CustomFoldingRangeProvider */
 export class CustomFoldingRangeProvider implements vscode.FoldingRangeProvider {
   private _configurationService: config.ConfigurationService;
   public get configurationService() {
