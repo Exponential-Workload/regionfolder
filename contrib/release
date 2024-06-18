@@ -13,6 +13,7 @@ ensure_command_exists() {
 ensure_command_exists git
 ensure_command_exists jq
 ensure_command_exists pnpm
+ensure_command_exists prettier
 
 export FROM="$(git describe --tags --abbrev=0)"
 
@@ -46,18 +47,46 @@ set -- "${POSITIONAL_ARGS[@]}"
 
 export RELEASE="$1"
 if [[ "$RELEASE" == "" ]]; then
-  echo "Usage: $0 <release-name-without-prefix> [--from <last-release>] [--prerelease]" 1>&2;
+  echo "Usage: $0 <release-name> [--from <last-release>] [--prerelease]" 1>&2;
   exit 1;
 fi
+# if release starts with `v`, remove it
+if [[ "$RELEASE" == v* ]]; then
+  export RELEASE="${RELEASE:1}"
+fi;
 
 CHANGELOGEN_ARGS=();
 if [[ "$PRERELEASE" == "true" ]]; then
   CHANGELOGEN_ARGS+=("--prerelease")
 fi;
 
-gen_changelog() {
-  pnpm changelogen --no-tag ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" $@
-}
-gen_changelog --bump --no-output > .git/TAG_EDITMSG
-gen_changelog
-git tag -s "v$RELEASE"
+pnpm changelogen --from "$FROM" ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" --output /tmp/changelog
+
+sed -i 's/# Changelog//g' /tmp/changelog
+CHANGELOG="$(cat /tmp/changelog)"
+rm /tmp/changelog
+
+cp CHANGELOG.md /tmp/changelog
+sed -i 's/# Changelog//g' /tmp/changelog
+echo -e "# Changelog
+
+$CHANGELOG
+$(cat /tmp/changelog)" > CHANGELOG.md
+rm /tmp/changelog
+
+prettier -w CHANGELOG.md
+
+jq '.version="'"$RELEASE"'"' package.json > /tmp/package.json
+mv /tmp/package.json package.json
+
+git add package.json CHANGELOG.md
+git commit -m "chore(release): v$RELEASE
+
+Changelog:
+$CHANGELOG
+
+Released by $(git config user.name) ($(git config user.email))"
+
+git tag -s "v$RELEASE" -m "Changelog:
+$CHANGELOG"
+git push origin --tag
