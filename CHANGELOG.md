@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.2.1-alpha1
+
+[compare changes](https://github.com/Exponential-Workload/regionfolder/compare/v1.2.0...v1.2.1-alpha1)
+
+### 🚀 Enhancements
+
+- We use conventional changelog now ([8e68dc4](https://github.com/Exponential-Workload/regionfolder/commit/8e68dc4))
+- Changelog Scripting (CBA to list commits, should've made this a separate branch)
+
+### ❤️ Contributors
+
+- Expo <expo@expo.moe>
+
 ## v1.2.0
 
 [compare changes](https://github.com/Exponential-Workload/regionfolder/compare/v1.1.0...v1.2.0)
@@ -126,14 +139,14 @@ Below are the versions of the pre-forked repository. We cannot offer support for
   "3xpo.regionfolder": {
     "[javascript]": {
       "foldEnd": "/* #endregion */",
-      "foldEndRegex": "/\\*[\\s]*#endregion",
+      "foldEndRegex": "/*[s]*#endregion",
       "foldStart": "/* #region [NAME] */",
-      "foldStartRegex": "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
-      "defaultFoldStartRegex": "^[\\s]*/\\*[\\s]*#region[\\s]*default(.*)[\\s]*\\*/[\\s]*$",
+      "foldStartRegex": "^[s]*/*[s]*#region[s]*(.*)[s]**/[s]*$",
+      "defaultFoldStartRegex": "^[s]*/*[s]*#region[s]*default(.*)[s]**/[s]*$",
       "foldDefinitions": [
         {
-          "foldEndRegex": "\\*+/[\\s]*$",
-          "foldStartRegex": "^[\\s]*/\\*\\*+",
+          "foldEndRegex": "*+/[s]*$",
+          "foldStartRegex": "^[s]*/**+",
           "isFoldedByDefault": true
         }
       ]

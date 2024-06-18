@@ -65,12 +65,12 @@ pnpm changelogen --from "$FROM" ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" --output /t
 
 sed -i 's/# Changelog//g' /tmp/changelog.md
 if [[ "$PRERELEASE" == "true" ]]; then
-  sed -i 's/### '"$RELEASE"'/### '"$RELEASE"' (Prerelease)/g' /tmp/changelog.md
+  sed -i 's/## '"$RELEASE"'/## '"$RELEASE"' (Prerelease)/g' /tmp/changelog.md
 fi;
 echo "Please review/modify the changelog as you please, then exit your editor to continue..."
 prettier -w /tmp/changelog.md
 sleep 0.5;
-command_exists $EDITOR && $EDITOR /tmp/changelog.md || command_exists codium && codium --wait /tmp/changelog.md || command_exists code && code --wait /tmp/changelog.md || nano /tmp/changelog.md
+(command_exists $EDITOR && $EDITOR /tmp/changelog.md) || (command_exists codium && codium --wait /tmp/changelog.md) || (command_exists code && code --wait /tmp/changelog.md) || (nano /tmp/changelog.md)
 CHANGELOG="$(cat /tmp/changelog.md)"
 rm /tmp/changelog.md
 
