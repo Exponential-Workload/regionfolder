@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -e
+
+command_exists() {
+  command -v "$@" > /dev/null 2>&1;
+}
+ensure_command_exists() {
+  if ! command_exists "$@"; then
+    echo "$@ is not installed. Please install it and try again."
+    exit 1
+  fi;
+}
+ensure_command_exists git
+ensure_command_exists jq
+ensure_command_exists pnpm
+
+git diff-index --quiet --cached HEAD -- && (echo 'Please commit everything before making a release.' && exit 1)
+
+export FROM="$(git describe --tags --abbrev=0)"
+
+POSITIONAL_ARGS=()
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -f|--from)
+      FROM="$2"
+      if [[ "$FROM" == "" ]]; then
+        echo "$1 requires a release as an argument" 1>&2;
+        exit 1;
+      fi
+      shift # past argument
+      shift # past value
+      ;;
+    -p|prerelease)
+      export PRERELEASE=true
+      shift # past argument
+      shift # past value
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+set -- "${POSITIONAL_ARGS[@]}"
+
+export RELEASE="$1"
+if [[ "$RELEASE" == "" ]]; then
+  echo "Usage: $0 <release-name> [--from <last-release>] [--prerelease]" 1>&2;
+  exit 1;
+fi
+
+CHANGELOGEN_ARGS=();
+if [[ "$PRERELEASE" == "true" ]]; then
+  CHANGELOGEN_ARGS+=("--prerelease")
+fi;
+
+gen_changelog() {
+  pnpm changelogen --bump --no-tag ${CHANGELOGEN_ARGS[@]} -r "$RELEASE" $@
+}
+gen_changelog --no-output > .git/TAG_EDITMSG
+gen_changelog
+git tag -s "$RELEASE"

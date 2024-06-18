@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -e
+
+handleDirty() {
+  echo "Stashing due to dirty env"
+  export IS_STASHED="true";
+  git stash
+}
+
+export CURRENT_COMMIT="$(git rev-parse HEAD | tr -d '[:space:]')"
+export TARGET_TAG="$1"
+if [[ "$TARGET_TAG" == "" ]]; then
+  echo "Usage: $0 <git tag>";
+  exit 1;
+fi
+
+git diff-index --quiet --cached HEAD -- && handleDirty
+
+git reset --hard "$TARGET_TAG"
+git tag -d "$TARGET_TAG"
+git tag -s "$TARGET_TAG"
+git reset --hard "$CURRENT_COMMIT"
+
+if [[ "$IS_STASHED" == "true" ]]; then
+  echo "Popping stash"
+  git stash pop || true
+fi
