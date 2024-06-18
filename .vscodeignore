@@ -18,3 +18,4 @@ esbuild.js
 **/.vscode-test.*
 **/.vscode-test-*
 *.vsix
+meta.mjs
