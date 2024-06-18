@@ -8,20 +8,20 @@
     "type": "git",
     "url": "https://github.com/Exponential-Workload/regionfolder"
   },
-  "main": "./out/extension",
-  "browser": "./out/web/extension",
+  "main": "./dist/extension",
+  "browser": "./dist/web/extension",
   "exports": {
     ".": {
-      "require": "./out/extension",
-      "browser": "./out/web/extension",
-      "default": "./out/extension"
+      "require": "./dist/extension",
+      "browser": "./dist/web/extension",
+      "default": "./dist/extension"
     }
   },
   "scripts": {
     "vscode:prepublish": "concurrently \"npm:build\" \"npm:lint\"",
     "esbuild:base": "esbuild src/extension.ts --bundle --minify --external:vscode --format=cjs --sourcemap",
-    "esbuild:web": "pnpm run esbuild:base --outfile=out/web/extension.js --platform=browser",
-    "esbuild:desktop": "pnpm run esbuild:base --outfile=out/extension.js --platform=node",
+    "esbuild:web": "pnpm run esbuild:base --outfile=dist/web/extension.js --platform=browser",
+    "esbuild:desktop": "pnpm run esbuild:base --outfile=dist/extension.js --platform=node",
     "build": "pnpm run check-types && npm-run-all -p build:*",
     "build:web": "pnpm run esbuild:web",
     "build:desktop": "pnpm run esbuild:desktop",
