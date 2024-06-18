@@ -18,4 +18,6 @@ esbuild.js
 **/.vscode-test.*
 **/.vscode-test-*
 *.vsix
+imgs/region-wrapping.webp
+imgs/CSharp_region_wrap.gif
 meta.mjs

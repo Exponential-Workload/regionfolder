@@ -8,7 +8,7 @@ Oh and (as of v1.2.0) we have web support!
 
 This extension enhances the default code folding abilities of Visual Studio Code editor. Regions of code that you'd like to be folded can be wrapped with `#region` comments.
 
-![Custom Folding](https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/imgs/CSharp_region_wrap.gif)
+[![Custom Folding](https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/imgs/region-wrapping.webp)](https://raw.githubusercontent.com/Exponential-Workload/regionfolder/master/imgs/region-wrapping.webm)
 
 The precise format of the comment depends on the language. For instance, for C-Style languages, regions are of the form:
 
