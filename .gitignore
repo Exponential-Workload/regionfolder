@@ -2,7 +2,5 @@ out
 node_modules
 .vscode-test/
 *.vsix
-
 .vs/
-
 .vscode-test*

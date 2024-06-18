@@ -17,3 +17,4 @@ esbuild.js
 **/*.ts
 **/.vscode-test.*
 **/.vscode-test-*
+*.vsix

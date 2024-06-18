@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run build",
+    "vscode:prepublish": "concurrently \"npm:build\" \"npm:lint\"",
     "esbuild:base": "esbuild src/extension.ts --bundle --minify --external:vscode --format=cjs --sourcemap",
     "esbuild:web": "pnpm run esbuild:base --outfile=out/web/extension.js --platform=browser",
     "esbuild:desktop": "pnpm run esbuild:base --outfile=out/extension.js --platform=node",
@@ -28,22 +28,22 @@
     "watch:web": "npm-run-all -p watch-web:*",
     "watch:web:esbuild": "node esbuild.js --watch",
     "watch:web:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "lint": "prettier -c src",
     "pretest": "pnpm run build",
     "pretest:web": "pnpm run build",
     "pretest:desktop": "pnpm run build",
     "test:web": "pnpm run run-in-browser",
     "test:desktop": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
     "check-types": "tsc --noEmit",
-    "run-in-browser": "vscode-test-web --browserType=firefox --extensionDevelopmentPath=. ."
+    "run-in-browser": "vscode-test-web --browserType=firefox --extensionDevelopmentPath=. .",
+    "package": "vsce package -o regionfolder.vsix",
+    "start": "pnpm package && code --install-extension regionfolder.vsix"
   },
   "devDependencies": {
     "@3xpo/pkgmetatool": "^0.1.8",
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@types/assert": "^1.5.10",
     "@types/mocha": "^10.0.6",
     "@types/vscode": "^1.90.0",
-    "@typescript-eslint/eslint-plugin": "^7.7.1",
-    "@typescript-eslint/parser": "^7.7.1",
     "@vscode/test-electron": "^2.4.0",
     "@vscode/test-web": "^0.0.54",
     "assert": "^2.1.0",
