@@ -91,8 +91,13 @@ export class RegionWrapperService {
   }
 
   private getEOLStr(eol: vscode.EndOfLine) {
-    if (eol === vscode.EndOfLine.CRLF) return '\r\n';
-    return '\n';
+    switch (eol) {
+      case vscode.EndOfLine.CRLF:
+        return '\r\n';
+
+      default:
+        return '\n';
+    }
   }
 }
 /* #endregion */
