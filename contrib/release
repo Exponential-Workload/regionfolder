@@ -14,8 +14,6 @@ ensure_command_exists git
 ensure_command_exists jq
 ensure_command_exists pnpm
 
-git diff-index --quiet --cached HEAD -- && (echo 'Please commit everything before making a release.' && exit 1)
-
 export FROM="$(git describe --tags --abbrev=0)"
 
 POSITIONAL_ARGS=()
