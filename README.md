@@ -55,11 +55,11 @@ To provide a custom folding for your language create a settings in your vscode s
 
 <!-- #region -->
 
-You can install the latest version of the extension is available on the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=3xpo.regionfolder).
+You can install the latest version of the extension is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=3xpo.regionfolder), aswell as [OpenVSX](https://open-vsx.org/extension/3xpo/regionfolding).
 
-Alternatively, open Visual Studio code, press `Ctrl+P` and type:
+Alternatively, open Codium, Code - OSS, or Visual Studio code - then press `Ctrl+P` and type:
 
-> ext install regionfolder
+> ext install 3xpo.regionfolding
 
 <!-- #endregion -->
 
