@@ -33,10 +33,10 @@
     "pretest:web": "pnpm run build",
     "pretest:desktop": "pnpm run build",
     "test:web": "pnpm run run-in-browser",
-    "test:desktop": "concurrently \"npm:build\" \"npm:lint\" \"tsc --noEmit\"",
+    "test:desktop": "echo \"todo: implement this\" && exit 1",
     "check-types": "tsc --noEmit",
     "run-in-browser": "vscode-test-web --browserType=firefox --extensionDevelopmentPath=. .",
-    "package": "vsce package -o out/regionfolder.vsix",
+    "package": "mkdir -p out && vsce package -o out/regionfolder.vsix",
     "start": "pnpm package && code --install-extension out/regionfolder.vsix"
   },
   "devDependencies": {
